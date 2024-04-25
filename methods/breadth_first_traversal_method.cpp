@@ -13,34 +13,41 @@ using graph::WeightedOrientedGraph;
 namespace graph {
 
 template<typename GraphType>
-int BreadthFirstTraversalMethodHelper(const nlohmann::json& input, nlohmann::json* output);
+int BreadthFirstTraversalMethodHelper(const nlohmann::json& input,
+    nlohmann::json* output);
 
-int BreadthFirstTraversalMethod(const nlohmann::json& input, nlohmann::json* output) {
+int BreadthFirstTraversalMethod(const nlohmann::json& input,
+    nlohmann::json* output) {
   std::string graphType = input.at("graph_type");
 
-  if (graphType == "Graph")
+  if (graphType == "Graph") {
     return BreadthFirstTraversalMethodHelper<Graph>(input, output);
-  else if (graphType == "OrientedGraph")
+  } else if (graphType == "OrientedGraph") {
     return BreadthFirstTraversalMethodHelper<OrientedGraph>(input, output);
-  else if (graphType == "WeightedGraph") {
+  } else if (graphType == "WeightedGraph") {
     std::string weightType = input.at("weight_type");
-    if (weightType == "int")
-      return BreadthFirstTraversalMethodHelper<WeightedGraph<int>>(input, output);
-    else
+    if (weightType == "int") {
+      return BreadthFirstTraversalMethodHelper<WeightedGraph<int>>(input,
+          output);
+    } else {
       return -1;
+    }
   } else if (graphType == "WeightedOrientedGraph") {
     std::string weightType = input.at("weight_type");
-    if (weightType == "int")
-      return BreadthFirstTraversalMethodHelper<WeightedOrientedGraph<int>>(input, output);
-    else
+    if (weightType == "int") {
+      return BreadthFirstTraversalMethodHelper<WeightedOrientedGraph<int>>(
+          input, output);
+    } else {
       return -1;
+    }
   }
 
   return -1;
 }
 
 template<typename GraphType>
-int BreadthFirstTraversalMethodHelper(const nlohmann::json& input, nlohmann::json* output) {
+int BreadthFirstTraversalMethodHelper(const nlohmann::json& input,
+    nlohmann::json* output) {
   GraphType graph;
   std::vector<size_t> result;
 

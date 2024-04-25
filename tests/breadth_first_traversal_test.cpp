@@ -5,10 +5,10 @@
  * Тесты для алгоритма graph::BreadthFirstTraversal.
  */
 
-#include "test_core.hpp"
 #include <httplib.h>
-#include <nlohmann/json.hpp>
 #include <unordered_set>
+#include <nlohmann/json.hpp>
+#include "test_core.hpp"
 
 static void SimpleTest(httplib::Client* cli);
 

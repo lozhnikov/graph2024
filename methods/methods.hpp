@@ -14,7 +14,8 @@ namespace graph {
 
 /* Сюда нужно вставить объявление серверной части алгоритма. */
 
-int BreadthFirstTraversalMethod(const nlohmann::json& input, nlohmann::json* output);
+int BreadthFirstTraversalMethod(const nlohmann::json& input,
+    nlohmann::json* output);
 
 
 /* Конец вставки. */
