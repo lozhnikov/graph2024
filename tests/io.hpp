@@ -13,6 +13,8 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <set>
+#include <unordered_set>
 #include <utility>
 
 template<typename ElemType>
@@ -102,5 +104,48 @@ std::ostream& operator<<(std::ostream& out,
   return out;
 }
 
+template<typename KeyType>
+std::ostream& operator<<(std::ostream& out,
+    const std::set<KeyType>& container) {
+  if (container.empty()) {
+    out << "{ }";
+    return out;
+  }
+
+  auto it = container.begin();
+
+  out << "{ " << *it;
+
+  ++it;
+
+  for (; it != container.end(); ++it)
+    out << ", " << *it;
+
+  out << " }";
+
+  return out;
+}
+
+template<typename KeyType>
+std::ostream& operator<<(std::ostream& out,
+    const std::unordered_set<KeyType>& container) {
+  if (container.empty()) {
+    out << "{ }";
+    return out;
+  }
+
+  auto it = container.begin();
+
+  out << "{ " << *it;
+
+  ++it;
+
+  for (; it != container.end(); ++it)
+    out << ", " << *it;
+
+  out << " }";
+
+  return out;
+}
 
 #endif  // TESTS_IO_HPP_
