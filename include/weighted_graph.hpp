@@ -51,12 +51,13 @@ class WeightedGraph {
    *
    * @param id1 Номер первой вершины.
    * @param id2 Номер второй вершины.
-   * @param weight Вес ребра.
+   * @param weight Вес ребра. Необязательный параметр. Инициализируется
+   * по-умолчанию стандартным конструктором.
    *
    * Функция добавляет ребро с весом weight, соединяющее вершины id1 и id2
    * в граф. Если такое ребро в графе уже есть, то функция ничего не делает.
    */
-  void AddEdge(size_t id1, size_t id2, Weight weight) {
+  void AddEdge(size_t id1, size_t id2, Weight weight = Weight()) {
     edges[id1].insert(id2);
     edges[id2].insert(id1);
     weights[MakeEdgeId(id1, id2)] = weight;

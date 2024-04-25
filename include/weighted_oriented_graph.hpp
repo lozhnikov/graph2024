@@ -59,13 +59,14 @@ class WeightedOrientedGraph {
    *
    * @param id1 Номер вершины, из которой выходит ребро.
    * @param id2 Номер вершины, в которую входит ребро.
-   * @param weight Вес ребра.
+   * @param weight Вес ребра. Необязательный параметр. Инициализируется
+   * по-умолчанию стандартным конструктором.
    *
    * Функция добавляет ребро с весом weight, выходящее из вершины id1 и входящее
    * в вершину id2 в граф. Если такое ребро в графе уже есть, то функция ничего
    * не делает.
    */
-  void AddEdge(size_t id1, size_t id2, Weight weight) {
+  void AddEdge(size_t id1, size_t id2, Weight weight = Weight()) {
     edges[id1].insert(id2);
     incomingEdges[id2].insert(id1);
     weights[std::make_pair(id1, id2)] = weight;
