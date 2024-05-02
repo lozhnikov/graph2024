@@ -64,11 +64,6 @@ void MyAlgorithmPrims(graph::WeightedGraph<WeightType>& graph, std::vector<std::
     }
 
     *resEdges = edges;
-    /*for(const auto it : vertices)
-      std::cout << it << ' ';
-    std::cout << std::endl;
-    for(int i = 0; i < edges.size(); ++i)
-      std::cout << edges[i][0] << ' ' << edges[i][1] << '\n';*/
 }
 
 } //namespace graph
