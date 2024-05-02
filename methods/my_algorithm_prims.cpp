@@ -5,9 +5,11 @@
 namespace graph {
 
     template<typename WeightType>
-    int MyAlgorithmPrimsHelperMethod(const nlohmann::json& input, nlohmann::json* output);
+    int MyAlgorithmPrimsHelperMethod(const nlohmann::json& input,
+                                     nlohmann::json* output);
 
-    int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output) {
+    int MyAlgorithmPrimsMethod(const nlohmann::json& input,
+                               nlohmann::json* output) {
         std::string graphType = input.at("graph_type");
 
         if (graphType != "WeightedGraph") {
@@ -17,11 +19,9 @@ namespace graph {
         std::string weightType = input.at("weight_type");
         if (weightType == "int") {
             return MyAlgorithmPrimsHelperMethod<int>(input, output);
-        }
-        else if (weightType == "double") {
+        } else if (weightType == "double") {
             return MyAlgorithmPrimsHelperMethod<double>(input, output);
-        }
-        else {
+        } else {
             return -1;
         }
 
@@ -29,7 +29,8 @@ namespace graph {
     }
 
     template<typename WeightType>
-    int MyAlgorithmPrimsHelperMethod(const nlohmann::json& input, nlohmann::json* output) {
+    int MyAlgorithmPrimsHelperMethod(const nlohmann::json& input,
+                                     nlohmann::json* output) {
         graph::WeightedGraph<WeightType> g;
         std::vector<std::vector<WeightType>> result;
 
@@ -49,4 +50,4 @@ namespace graph {
 
         return 0;
     }
-}
+}  // namespace graph

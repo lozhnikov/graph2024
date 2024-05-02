@@ -35,7 +35,8 @@ int main(int argc, char* argv[]) {
 
   /* Сюда нужно вставить обработчик post запроса для алгоритма. */
 
-  svr.Post("/MyAlgorithmPrims", [&](const httplib::Request& req, httplib::Response& res) {
+  svr.Post("/MyAlgorithmPrims", [&](const httplib::Request& req,
+                                    httplib::Response& res) {
     nlohmann::json input = nlohmann::json::parse(req.body);
     nlohmann::json output;
 
