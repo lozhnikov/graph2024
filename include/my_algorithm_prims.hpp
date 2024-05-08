@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <vector>
-#include <unordered_set>
+#include <unordered_map>
 #include <set>
 #include <utility>
 
@@ -20,8 +20,8 @@ namespace graph {
  * @brief Алгоритм Прима
  */
 template <typename WeightType>
-void MyAlgorithmPrims(graph::WeightedGraph<WeightType>& graph, std::vector<std::pair<size_t, size_t>>* resEdges)
-{
+void MyAlgorithmPrims(const graph::WeightedGraph<WeightType>& graph,
+std::vector<std::pair<size_t, size_t>>* resEdges) {
     std::vector<std::pair<size_t, size_t>> edges(graph.NumVertices() - 1);
     std::unordered_map<size_t, WeightType> minEdge;
     std::unordered_map<size_t, size_t> selEdge;

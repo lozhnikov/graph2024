@@ -7,9 +7,9 @@
 
 #include <httplib.h>
 #include <vector>
+#include <random>
 #include <unordered_set>
 #include <nlohmann/json.hpp>
-#include <random>
 #include "test_core.hpp"
 
 static void SimpleTest(httplib::Client* cli);
@@ -129,7 +129,8 @@ static void RandomTest(httplib::Client* cli) {
 
     std::vector<std::pair<size_t, size_t>> result = output.at("result");
 
-    std::unordered_set<size_t> expected = {11, 5, 5, 10, 10, 15, 13, 13, 17, 17, 19};
+    std::unordered_set<size_t>
+    expected = {11, 5, 5, 10, 10, 15, 13, 13, 17, 17, 19};
     std::unordered_set<size_t> resultEdges;
 
     for (int i = 0; i < result.size(); ++i) {
