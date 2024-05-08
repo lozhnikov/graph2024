@@ -19,47 +19,40 @@ namespace graph {
 /**
  * @brief Алгоритм Прима
  */
-template<typename WeightType>
-void MyAlgorithmPrims(const graph::WeightedGraph<WeightType>& graph,
-std::vector<std::vector<WeightType>>* resEdges) {
-    const int INF = 1000000000;
-    std::vector<int> vertices(graph.NumVertices());
-    std::vector<std::vector<WeightType>>
-    edges(graph.NumVertices() - 1, std::vector<WeightType>(2));
-    std::vector<int> minEdge(static_cast<int>(graph.NumVertices()), INF),
-    selEdge(static_cast<int>(graph.NumVertices()), -1);
-    minEdge[0] = 0;
-    std::set < std::pair<int, int> > q;
-    q.insert(std::make_pair(0, 0));
+template <typename WeightType>
+void MyAlgorithmPrims(graph::WeightedGraph<WeightType>& graph, std::vector<std::pair<size_t, size_t>>* resEdges)
+{
+    std::vector<std::pair<size_t, size_t>> edges(graph.NumVertices() - 1);
+    std::unordered_map<size_t, WeightType> minEdge;
+    std::unordered_map<size_t, size_t> selEdge;
+    std::set<std::pair<size_t, size_t>> q;
+    size_t vertexBegin = *(graph.Vertices().begin());
+    minEdge[vertexBegin] = WeightType();
+    q.insert(std::make_pair(vertexBegin, vertexBegin));
 
     int iterator = 0;
-    for (size_t it = 0; it < graph.NumVertices(); ++it) {
-      vertices[it] = static_cast<int>(it);
-    }
-
     for (size_t i = 0; i < graph.NumVertices(); ++i) {
         if (q.empty()) {
           std::cout << "No MST!";
           exit(0);
         }
-        int v = q.begin()->second;
+        size_t v = q.begin()->second;
         q.erase(q.begin());
 
-        if (selEdge[v] != -1) {
-          edges[iterator][0] = selEdge[v];
-          edges[iterator][1] = v;
+        if (selEdge.find(v) != selEdge.end()) {
+          edges[iterator].first = selEdge.at(v);
+          edges[iterator].second = v;
           ++iterator;
         }
 
-        std::unordered_set<size_t> vertWithV = graph.Edges(v);
-
-        for (const auto& elem : vertWithV) {
-          int to = elem, cost = graph.EdgeWeight(v, elem);
-          if (cost < minEdge[to]) {
+        for (const auto& elem : graph.Edges(v)) {
+          size_t to = elem;
+          WeightType cost = graph.EdgeWeight(v, elem);
+          if (minEdge.find(to) == minEdge.end() || cost < minEdge.at(to)) {
               q.erase(std::make_pair(minEdge[to], to));
               minEdge[to] = cost;
               selEdge[to] = v;
-              q.insert(std::make_pair(minEdge[to], to));
+              q.insert(std::make_pair(cost, to));
             }
         }
     }

@@ -32,7 +32,7 @@ namespace graph {
     int MyAlgorithmPrimsHelperMethod(const nlohmann::json& input,
                                      nlohmann::json* output) {
         graph::WeightedGraph<WeightType> g;
-        std::vector<std::vector<WeightType>> result;
+        std::vector<std::pair<size_t, size_t>> result;
 
         for (auto& vertex : input.at("vertices")) {
             g.AddVertex(vertex);
@@ -45,7 +45,7 @@ namespace graph {
         MyAlgorithmPrims<WeightType>(g, &result);
 
         for (size_t i = 0; i < result.size(); ++i) {
-            (*output)["result"].push_back({result[i][0], result[i][1]});
+            (*output)["result"].push_back({result[i].first, result[i].second});
         }
 
         return 0;
