@@ -114,8 +114,10 @@ add_executable(
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  include/kuhn_matching.hpp
   methods/main.cpp
   methods/methods.hpp
+  methods/kuhn_matching_method.cpp
  "methods/kuhn_matching_method.cpp")
 
 ####################################################################
@@ -140,6 +142,7 @@ add_executable(
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  include/kuhn_matching.hpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/main.cpp
@@ -149,6 +152,7 @@ add_executable(
   tests/test_core.hpp
   tests/weighted_graph_test.cpp
   tests/weighted_oriented_graph_test.cpp
+  tests/kuhn_matching_test.cpp
  "methods/kuhn_matching_method.cpp")
 
 #####################################################################

@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
             /* Если метод завершился с ошибкой, то выставляем статус 400. */
             if (graph::KuhnMatchingMethod(input, &output) < 0)
                 res.status = 400;
-
+                
             /*
             Метод nlohmann::json::dump() используется для сериализации
             объекта типа nlohmann::json в строку. Метод set_content()
@@ -49,3 +49,8 @@ int main(int argc, char* argv[]) {
 
 
     /* Конец вставки. */
+
+    svr.listen("0.0.0.0", port);
+
+    return 0;
+}
