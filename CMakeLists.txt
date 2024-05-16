@@ -3,7 +3,6 @@ project(graph CXX)
 cmake_minimum_required(VERSION 3.2)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 
@@ -110,13 +109,11 @@ include_directories(${GRAPH_INCLUDE_DIRS})
 
 add_executable(
   graph_server
-  include/bridge_finder.hpp
   include/graph.hpp
   include/iterators.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
-  methods/bridge_finder_method.cpp
   methods/main.cpp
   methods/methods.hpp
 )
@@ -138,13 +135,11 @@ target_link_libraries(graph_server ${GRAPH_LIBS})
 
 add_executable(
   graph_test
-  include/bridge_finder.hpp
   include/graph.hpp
   include/iterators.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
-  tests/bridge_finder_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/main.cpp

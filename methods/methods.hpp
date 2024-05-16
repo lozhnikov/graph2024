@@ -14,7 +14,6 @@ namespace graph {
 
 /* Сюда нужно вставить объявление серверной части алгоритма. */
 
-  void process_find_brigdes(const httplib::Request& req, httplib::Response& res);
 
 
 /* Конец вставки. */
