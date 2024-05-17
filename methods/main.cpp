@@ -6,51 +6,51 @@
 
 
 int main(int argc, char* argv[]) {
-    // Порт по-умолчанию.
-    int port = 8080;
-    if (argc >= 2) {
-        // Меняем порт по умолчанию, если предоставлен соответствующий
-        // аргумент командной строки.
-        if (std::sscanf(argv[1], "%d", &port) != 1)
-            return -1;
-    }
-    std::cerr << "Listening on port " << port << "..." << std::endl;
-    httplib::Server svr;
-    // Обработчик для GET запроса по адресу /stop. Этот обработчик
-    // останавливает сервер.
-    svr.Get("/stop", [&](const httplib::Request&, httplib::Response&) {
-        svr.stop();
-        });
+  // Порт по-умолчанию.
+  int port = 8080;
+  if (argc >= 2) {
+      // Меняем порт по умолчанию, если предоставлен соответствующий
+      // аргумент командной строки.
+      if (std::sscanf(argv[1], "%d", &port) != 1)
+          return -1;
+  }
+  std::cerr << "Listening on port " << port << "..." << std::endl;
+  httplib::Server svr;
+  // Обработчик для GET запроса по адресу /stop. Этот обработчик
+  // останавливает сервер.
+  svr.Get("/stop", [&](const httplib::Request&, httplib::Response&) {
+      svr.stop();
+      });
 
-    /* Сюда нужно вставить обработчик post запроса для алгоритма. */
+  /* Сюда нужно вставить обработчик post запроса для алгоритма. */
 
-    svr.Post("/KuhnMatching", [&](const httplib::Request& req,
-        httplib::Response& res) {
-            /*
-            Поле body структуры httplib::Request содержит текст запроса.
-            Функция nlohmann::json::parse() используется для того,
-            чтобы преобразовать текст в объект типа nlohmann::json.
-            */
-            nlohmann::json input = nlohmann::json::parse(req.body);
-            nlohmann::json output;
+  svr.Post("/KuhnMatching", [&](const httplib::Request& req,
+      httplib::Response& res) {
+          /*
+          Поле body структуры httplib::Request содержит текст запроса.
+          Функция nlohmann::json::parse() используется для того,
+          чтобы преобразовать текст в объект типа nlohmann::json.
+          */
+          nlohmann::json input = nlohmann::json::parse(req.body);
+          nlohmann::json output;
 
-            /* Если метод завершился с ошибкой, то выставляем статус 400. */
-            if (graph::KuhnMatchingMethod(input, &output) < 0)
-                res.status = 400;
+          /* Если метод завершился с ошибкой, то выставляем статус 400. */
+          if (graph::KuhnMatchingMethod(input, &output) < 0)
+              res.status = 400;
                 
-            /*
-            Метод nlohmann::json::dump() используется для сериализации
-            объекта типа nlohmann::json в строку. Метод set_content()
-            позволяет задать содержимое ответа на запрос. Если передаются
-            JSON данные, то MIME тип следует выставить application/json.
-            */
-            res.set_content(output.dump(), "application/json");
-        });
+          /*
+          Метод nlohmann::json::dump() используется для сериализации
+          объекта типа nlohmann::json в строку. Метод set_content()
+          позволяет задать содержимое ответа на запрос. Если передаются
+          JSON данные, то MIME тип следует выставить application/json.
+          */
+          res.set_content(output.dump(), "application/json");
+      });
 
 
-    /* Конец вставки. */
+  /* Конец вставки. */
 
-    svr.listen("0.0.0.0", port);
+  svr.listen("0.0.0.0", port);
 
-    return 0;
+  return 0;
 }
