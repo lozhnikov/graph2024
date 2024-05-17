@@ -40,27 +40,12 @@ int main(int argc, char* argv[]) {
 
   /* Сюда нужно вставить вызов набора тестов для алгоритма. */
 
-  const std::string body1 = u8" {\"0\":[1,2], \"1\":[0,2], \"2\":[0,1,3], \"3\":[2,4,5,6,7], \"4\":[3,5], \"5\":[3,4,9], \"6\":[3,7], \"7\":[3,6,8], \"8\":[7], \"9\":[5]} ";
-  auto res_post1 = cli.Post("/find_bridges", body1, "application/json");
-  const std::string result1 = u8"{\"2\":\"3\",\"3\":\"2\",\"5\":\"9\",\"7\":\"8\",\"8\":\"7\",\"9\":\"5\"}";
-  REQUIRE_EQUAL(res_post1->body1, result1);
-
-  const std::string body2 = u8" {\"0\":[1], \"1\":[0,2], \"2\":[1,3,4], \"3\":[2,4], \"4\":[2,3,5], \"5\":[4,6,7], \"6\":[5,7], \"7\":[5,6]} ";
-  auto res_post2 = cli.Post("/find_bridges", body2, "application/json");
-  const std::string result2 = u8"{\"0\":\"1\",\"1\":\"0\",\"1\":\"2\",\"2\":\"1\",\"4\":\"5\",\"5\":\"4\"}";
-  REQUIRE_EQUAL(res_post2->body2, result2);
-
-  const std::string body3 = u8" {\"0\":[1,2], \"1\":[0,2], \"2\":[0,1,3]} ";
-  auto res_post3 = cli.Post("/find_bridges", body3, "application/json");
-  const std::string result3 = u8"";
-  REQUIRE_EQUAL(res_post3->body3, result3);
-
-  const std::string body4 = u8" {\"0\":[1,2], \"1\":[0], \"2\":[0]} ";
-  auto res_post4 = cli.Post("/find_bridges", body4, "application/json");
-  const std::string result4 = u8"{\"0\":\"1\",\"1\":\"0\",\"0\":\"2\",\"2\":\"0\"}";
-  REQUIRE_EQUAL(res_post4->body4, result4);
-
+  const std::string body = u8" {\"0\":[1,2], \"1\":[0,2], \"2\":[0,1,3], \"3\":[2,4,5,6,7], \"4\":[3,5], \"5\":[3,4,9], \"6\":[3,7], \"7\":[3,6,8], \"8\":[7], \"9\":[5]} ";
   
+  auto res_post = cli.Post("/find_bridges", body, "application/json");
+  const std::string result = u8"{\" 2\":\"3\",\"3\":\"2\",\"5\":\"9\",\"7\":\"8\",\"8\":\"7\",\"9\":\"5\"}";
+
+  REQUIRE_EQUAL(res_post->body, result);
   /*
   if (res_post->body == result ) std::cout << "Bce Ok" << std::endl;
     else std::cout << res_post->body << std::endl;

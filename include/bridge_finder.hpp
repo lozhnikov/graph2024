@@ -59,3 +59,11 @@ std::unordered_map<size_t, size_t> bridge_finder(graph::Graph& Gr) {
 }  // namespace graph
 
 #endif  // LIB_GRAPH_BRIDGE_DETECTOR_HPP_
+
+
+
+
+
+
+
+

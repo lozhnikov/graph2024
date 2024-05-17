@@ -16,6 +16,7 @@ namespace graph {
 
   void process_find_brigdes(const httplib::Request& req, httplib::Response& res);
 
+
 /* Конец вставки. */
 
 }  // namespace graph
