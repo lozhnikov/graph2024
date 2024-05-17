@@ -13,6 +13,8 @@
 #include <vector>
 #include <unordered_map>
 #include <set>
+#include <utility>
+#include <unordered_set>
 
 namespace graph {
 
@@ -115,8 +117,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
     }
 
   *resEdges = edgesHelp;
-
   }
 
-}
-#endif // KUHN_MATCHING_HPP
+}  // namespace graph
+#endif  // KUHN_MATCHING_HPP 

@@ -19,24 +19,30 @@ nlohmann::json* output);
 int KuhnMatchingMethod(const nlohmann::json& input, nlohmann::json* output) {
   std::string graphType = input.at("graph_type");
 
-  if (graphType == "Graph")
+  if (graphType == "Graph") {
     return KuhnMatchingMethodHelper<Graph>(input, output);
-  else if (graphType == "OrientedGraph")
+  }
+  else if (graphType == "OrientedGraph"){
     return KuhnMatchingMethodHelper<OrientedGraph>(input, output);
+  }
   else if (graphType == "WeightedGraph") {
     std::string weightType = input.at("weight_type");
-    if (weightType == "int")
-      return KuhnMatchingMethodHelper<WeightedGraph<int>>(input, output);    
-    else
+    if (weightType == "int") {
+      return KuhnMatchingMethodHelper<WeightedGraph<int>>(input, output);
+    }
+    else {
       return -1;
+    }
   }
   else if (graphType == "WeightedOrientedGraph") {
     std::string weightType = input.at("weight_type");
-    if (weightType == "int")
+    if (weightType == "int") {
       return KuhnMatchingMethodHelper<WeightedOrientedGraph<int>>(input,
-          output);
-    else
+      output);
+    }
+    else {
       return -1;
+    }
   }
 
   return -1;
@@ -64,7 +70,4 @@ nlohmann::json* output) {
 
   return 0;
 }
-
-
-
-}
+}  // namespace graph
