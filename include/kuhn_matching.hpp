@@ -57,14 +57,14 @@ size_t GraphMaxId(const GraphType& graph) {
 }
 
 template<typename GraphType>
-void KuhnMatching(const GraphType& graph,
+void KuhnMatching(GraphType& graph,
 std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_set<size_t> minVert = {};
   std::vector<std::pair<size_t, size_t>> edgesHelp;
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1(GraphMaxId(graph+1));
+  std::vector<char> used1(GraphMaxId(graph)+1);
 
   for (size_t id : graph.Vertices()) {
     if (graph.Edges(id).empty() == true
