@@ -6,10 +6,10 @@
  */
 
 
-#ifndef KUHN_MATCHING_HPP
-#define KUHN_MATCHING_HPP
-#include <iostream>
+#ifndef INCLUDE_KUHN_MATCHING_HPP_
+#define INCLUDE_KUHN_MATCHING_HPP_
 #include "graph.hpp"
+#include <iostream>
 #include <vector>
 #include <unordered_map>
 #include <set>
@@ -47,7 +47,7 @@ bool try_kuhn(size_t v) {
 }
 
 template<typename GraphType>
-size_t GraphMaxId(GraphType& graph) {
+size_t GraphMaxId(const GraphType& graph) {
   size_t maxVertex = *(graph.Vertices().begin());
   for (size_t id : graph.Vertices()) {
     if (maxVertex < id)
@@ -57,14 +57,14 @@ size_t GraphMaxId(GraphType& graph) {
 }
 
 template<typename GraphType>
-void KuhnMatching(GraphType& graph,
+void KuhnMatching(const GraphType& graph,
 std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_set<size_t> minVert = {};
   std::vector<std::pair<size_t, size_t>> edgesHelp;
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1(GraphMaxId(graph));
+  std::vector<char> used1(GraphMaxId(graph+1));
 
   for (size_t id : graph.Vertices()) {
     if (graph.Edges(id).empty() == true
@@ -82,8 +82,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
       firstPart.insert(std::pair<size_t,
       std::unordered_set<size_t>>(id, graph.Edges(id)));
       minVert.insert(id);
-    }
-    else {
+    }else {
       secondPart.insert(std::pair<size_t,
       std::unordered_set<size_t>>(id, graph.Edges(id)));
     }
@@ -113,11 +112,11 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
 
   for (const auto& [i, value] : secondPart)
     if (mt[i] != -1) {
-      edgesHelp.push_back({ mt[i],i });
+      edgesHelp.push_back({ mt[i], i });
     }
 
   *resEdges = edgesHelp;
   }
 
 }  // namespace graph
-#endif  // KUHN_MATCHING_HPP 
+#endif  // INCLUDE_KUHN_MATCHING_HPP_
