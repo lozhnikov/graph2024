@@ -1,9 +1,9 @@
 bin
 build
-.vs
 data
 cmake-build-debug
 .idea
+.vs
 test
 *~
 *.user*

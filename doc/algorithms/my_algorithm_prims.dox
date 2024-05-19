@@ -1,0 +1,39 @@
+/*!
+
+@file my_algorithm_prims.dox
+@author Bogdan Kushnarenko
+
+@page my_algorithm_prims Алгоритм Прима для поиска минимального остова в разреженном связном графе
+
+@section my_algorithm_prims_algo Описание алгоритма Прима
+
+
+Алгоритм реализован в функции graph::MyAlgorithmPrims()
+
+*/
+
+/*!
+
+@file kuhn_matching.dox
+@author Aleksei Samarokov
+
+@page kuhn_matching Алгоритм Куна нахождения наибольшего паросочетания в двудольном графе
+
+@section kuhn_matching_algo Описание алгоритма Куна
+
+
+Алгоритм реализован в функции graph::KuhnMatching()
+
+*/
+
+/*!
+@fn graph::MyAlgorithmPrims(const graph::WeightedGraph<WeightType>& graph, std::vector<std::vector<WeightType>>* resEdges)
+
+Функция реализует алгоритм Прима для поиска минимального остова в разреженном графе
+@ref my_algorithm_prims.
+
+Время работы алгоритма
+\f$
+O(ElogV)
+\f$.
+*/
