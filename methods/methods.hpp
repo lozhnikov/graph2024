@@ -16,7 +16,6 @@ namespace graph {
 
 int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
 
-int KuhnMatchingMethod(const nlohmann::json& input, nlohmann::json* output);
 
 /* Конец вставки. */
 

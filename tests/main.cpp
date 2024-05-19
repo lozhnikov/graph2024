@@ -42,7 +42,6 @@ int main(int argc, char* argv[]) {
 
   TestMyAlgorithmPrims(&cli);
 
-  TestKuhnMatching(&cli);
 
   /* Конец вставки. */
 

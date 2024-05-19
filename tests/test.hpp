@@ -37,11 +37,5 @@ void TestWeightedOrientedGraph();
 */
 void TestMyAlgorithmPrims(httplib::Client* cli);
 
-/**
-* @brief Набор тестов для функции graph::KuhnMatching.
-*/
-void TestKuhnMatching(httplib::Client* cli);
-
-/* Конец вставки. */
 
 #endif  // TESTS_TEST_HPP_
