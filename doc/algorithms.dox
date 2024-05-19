@@ -1,10 +1,24 @@
 /*!
 
-@file algorithms.dox
-@author Mikhail Lozhnikov
+@file my_algorithm_prims.dox
+@author Platon Vyuzhanin
+@page bridge_finder Алгоритм поиска мостов в графе
+@section bridge_finder Описание алгоритма поиска мостов в графе
 
-@page algorithms Алгоритмы
 
-Список реализованных алгоритмов:
+Алгоритм реализован в функции graph::bridge_finder(graph::Graph& Gr)
 
+*/
+
+
+/*!
+@fn graph::std::unordered_map<size_t, size_t> bridge_finder(graph::Graph& Gr)
+
+Функция реализует алгоритм поиска мостов в графе с помошью обхода в глубину
+@ref bridge_finder
+
+Время работы алгоритма
+\f$
+O(m + n), где m - количество вершин, n - количество ребер
+\f$.
 */

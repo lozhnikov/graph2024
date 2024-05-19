@@ -32,7 +32,10 @@ void TestWeightedOrientedGraph();
 
 /* Сюда нужно добавить объявления тестовых функций. */
 
-
+/**
+ * @brief Набор тестов для метода draph::bridge_finder
+ */
+void test_find_bridges(httplib::Client& cli);
 
 /* Конец вставки. */
 

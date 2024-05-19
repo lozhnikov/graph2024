@@ -14,24 +14,6 @@
 #include "methods.hpp"
 
 int main(int argc, char* argv[]) {
-/*
-  graph::Graph Gr;
-  Gr.AddEdge(0, 1);
-  Gr.AddEdge(1, 2);
-  Gr.AddEdge(0, 2);
-  Gr.AddEdge(2, 3);
-
-  Gr.AddEdge(3, 4);
-  Gr.AddEdge(3, 6);
-  Gr.AddEdge(3, 7);
-  Gr.AddEdge(6, 7);
-  Gr.AddEdge(7, 8);
-  Gr.AddEdge(4, 5);
-  Gr.AddEdge(3, 5);
-  Gr.AddEdge(5, 9);
-
-  auto result = graph::bridge_finder(Gr);
-*/
   // Порт по-умолчанию.
   int port = 8080;
 

@@ -1,5 +1,5 @@
-#ifndef LIB_GRAPH_BRIDGE_DETECTOR_HPP_
-#define LIB_GRAPH_BRIDGE_DETECTOR_HPP_
+#ifndef INCLUDE_BRIDGE_FINDER_HPP_
+#define INCLUDE_BRIDGE_FINDER_HPP_
 
 #include <algorithm>
 #include <iostream>
@@ -58,7 +58,7 @@ std::unordered_map<size_t, size_t> bridge_finder(graph::Graph& Gr) {
 
 }  // namespace graph
 
-#endif  // LIB_GRAPH_BRIDGE_DETECTOR_HPP_
+#endif  // INCLUDE_BRIDGE_FINDER_HPP_и
 
 
 
