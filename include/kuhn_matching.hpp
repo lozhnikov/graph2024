@@ -17,12 +17,6 @@
 #include <unordered_set>
 
 namespace graph {
-
-int n, k;
-std::unordered_map<size_t, std::unordered_set<size_t>> g;
-std::vector<size_t> mt;
-std::vector<char> used;
-
 bool HasCommonElement(const std::unordered_set<size_t>& set1,
   const std::unordered_set<size_t>& set2) {
   for (int element : set1) {
@@ -33,12 +27,13 @@ bool HasCommonElement(const std::unordered_set<size_t>& set1,
   return false;
 }
 
-bool try_kuhn(size_t v) {
+bool try_kuhn(size_t v, std::unordered_map<size_t,std::unordered_set<size_t>>& g,
+std::vector<int>& mt, std::vector<char>& used) {
   if (used[v])  return false;
   used[v] = true;
   for (const auto& value : g[v]) {
     size_t to = value;
-    if (mt[to] == -1 || try_kuhn(mt[to])) {
+    if (mt[to] == -1 || try_kuhn(mt[to],g,mt,used)) {
       mt[to] = v;
       return true;
     }
@@ -64,7 +59,10 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1(GraphMaxId(graph)+1);
+  std::vector<char> used1((int)GraphMaxId(graph) + 1);
+  std::unordered_map<size_t, std::unordered_set<size_t>> g;
+  std::vector<int> mt;
+  std::vector<char> used((int)GraphMaxId(graph) + 1);
 
   for (size_t id : graph.Vertices()) {
     if (graph.Edges(id).empty() == true
@@ -88,8 +86,6 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
     }
   }
 
-  n = firstPart.size();
-  k = secondPart.size();
   for (const auto& [i, value] : firstPart) {
     g.insert(std::pair<size_t,
     std::unordered_set<size_t>>(i, value));
@@ -107,7 +103,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
   for (const auto& [i, value] : firstPart) {
     if (used1[i])  continue;
     used.assign(GraphMaxId(graph), false);
-    try_kuhn(i);
+    try_kuhn(i, g, mt, used);
   }
 
   for (const auto& [i, value] : secondPart)

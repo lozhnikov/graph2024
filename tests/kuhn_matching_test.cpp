@@ -24,38 +24,50 @@ void TestKuhnMatching(httplib::Client* cli) {
 
 static void SimpleTest(httplib::Client* cli) {
   nlohmann::json tmp;
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> vert1(0, 3);
+  std::uniform_int_distribution<> vert2(4, 7);
+
 
   tmp["graph_type"] = "Graph";
-  tmp["vertices"] = std::vector<int>{ 0, 1, 2, 3, 4, 5, 6 };
+  tmp["vertices"] = std::vector<int>{ 0, 1, 2, 3, 4, 5, 6, 7 };
+
   tmp["edges"][0]["from"] = 0;
-  tmp["edges"][0]["to"] = 3;
+  tmp["edges"][0]["to"] = 4;
 
-  tmp["edges"][1]["from"] = 0;
-  tmp["edges"][1]["to"] = 4;
+  tmp["edges"][1]["from"] = 1;
+  tmp["edges"][1]["to"] = 5;
 
-  tmp["edges"][2]["from"] = 1;
-  tmp["edges"][2]["to"] = 5;
+  tmp["edges"][2]["from"] = 2;
+  tmp["edges"][2]["to"] = 6;
 
-  tmp["edges"][3]["from"] = 2;
-  tmp["edges"][3]["to"] = 6;
+  tmp["edges"][3]["from"] = 3;
+  tmp["edges"][3]["to"] = 7;
 
-  tmp["edges"][4]["from"] = 2;
-  tmp["edges"][4]["to"] = 4;
+  int firstVert = vert1(gen);
+  int secondVert = vert2(gen);
+  tmp["edges"][4]["from"] = firstVert;
+  tmp["edges"][4]["to"] = secondVert;
 
+  firstVert = vert1(gen);
+  secondVert = vert2(gen);
+  tmp["edges"][5]["from"] = firstVert;
+  tmp["edges"][5]["to"] = secondVert;
 
   std::string input = tmp.dump();
 
   auto res = cli->Post("/KuhnMatching", input, "application/json");
 
   if (!res) {
-      REQUIRE(false);
+    REQUIRE(false);
   }
 
   nlohmann::json output = nlohmann::json::parse(res->body);
 
   std::vector<std::pair<size_t, size_t>> result = output.at("result");
 
-  std::unordered_set<size_t> expected = {2, 4, 1, 5, 0, 3 };
+  std::unordered_set<size_t> expected = { 3, 7, 2, 6, 1, 5, 0, 4 };
   std::unordered_set<size_t> resultEdges;
 
   for (int i = 0; i < result.size(); ++i) {
