@@ -116,6 +116,7 @@ add_executable(
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   methods/main.cpp
+  methods/SearchStrongConnectComp.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
 )
@@ -141,10 +142,12 @@ add_executable(
   include/iterators.hpp
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
+  include/SearchStrongConnectComp.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   tests/graph_test.cpp
   tests/io.hpp
+  tests/SearchStrongConnectComp.cpp
   tests/main.cpp
   tests/my_algorithm_prims_test.cpp
   tests/oriented_graph_test.cpp
