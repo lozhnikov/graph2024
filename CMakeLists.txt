@@ -118,7 +118,7 @@ add_executable(
   methods/main.cpp
   methods/methods.hpp
   methods/kuhn_matching_method.cpp
- "methods/kuhn_matching_method.cpp")
+ )
 
 ####################################################################
 #    Конец вставки
@@ -153,7 +153,7 @@ add_executable(
   tests/weighted_graph_test.cpp
   tests/weighted_oriented_graph_test.cpp
   tests/kuhn_matching_test.cpp
- "methods/kuhn_matching_method.cpp")
+ )
 
 #####################################################################
 #    Конец вставки
