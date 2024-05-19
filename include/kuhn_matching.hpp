@@ -59,10 +59,10 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1((int)GraphMaxId(graph) + 1);
+  std::vector<char> used1((int)GraphMaxId(graph) + 2);
   std::unordered_map<size_t, std::unordered_set<size_t>> g;
   std::vector<int> mt;
-  std::vector<char> used((int)GraphMaxId(graph) + 1);
+  std::vector<char> used((int)GraphMaxId(graph) + 2);
 
   for (size_t id : graph.Vertices()) {
     if (graph.Edges(id).empty() == true
