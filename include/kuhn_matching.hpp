@@ -91,7 +91,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
     std::unordered_set<size_t>>(i, value));
   }
 
-  mt.assign(GraphMaxId(graph), -1);
+  mt.assign(GraphMaxId(graph) + 2, -1);
   for (const auto& [i, value] : firstPart)
     for (const auto& value : firstPart[i])
       if (mt[value] == -1) {
