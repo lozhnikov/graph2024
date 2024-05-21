@@ -57,7 +57,7 @@ nlohmann::json* output) {
     graph.AddEdge(edge.at("from"), edge.at("to"));
   }
 
-  KuhnMatching(graph, &result);
+  KuhnMatching(&graph, &result);
 
   for (size_t i = 0; i < result.size(); ++i) {
       (*output)["result"].push_back({ result[i].first, result[i].second });

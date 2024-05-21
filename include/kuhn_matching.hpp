@@ -60,64 +60,61 @@ size_t GraphMaxId(const GraphType& graph) {
 }
 
 template<typename GraphType>
-void KuhnMatching(GraphType& graph,
+void KuhnMatching(GraphType* graph,
 std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_set<size_t> minVert = {};
   std::vector<std::pair<size_t, size_t>> edgesHelp;
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1((int)GraphMaxId(graph) + 2);
-  Params* params;
-  std::unordered_map<size_t, std::unordered_set<size_t>>& g = params->g;
-  std::vector<int>& mt = params->mt;
-  std::vector<char>& used = params->used;
+  std::vector<char> used1((int)GraphMaxId(*graph) + 2);
+  Params params;
 
-  for (size_t id : graph.Vertices()) {
-    if (graph.Edges(id).empty() == true
-      && graph.IncomingEdges(id).empty() == true) {
+  for (size_t id : (*graph).Vertices()) {
+    if ((*graph).Edges(id).empty() == true
+      && (*graph).IncomingEdges(id).empty() == true) {
       helper.push_back(id);
     }
   }
 
   for (size_t id : helper) {
-    graph.RemoveVertex(id);
+    (*graph).RemoveVertex(id);
   }
 
-  for (size_t id : graph.Vertices()) {
-    if (HasCommonElement(minVert, graph.Edges(id)) == false) {
+  for (size_t id : (*graph).Vertices()) {
+    if (HasCommonElement(minVert, (*graph).Edges(id)) == false) {
       firstPart.insert(std::pair<size_t,
-      std::unordered_set<size_t>>(id, graph.Edges(id)));
+        std::unordered_set<size_t>>(id, (*graph).Edges(id)));
       minVert.insert(id);
     }else {
       secondPart.insert(std::pair<size_t,
-      std::unordered_set<size_t>>(id, graph.Edges(id)));
+        std::unordered_set<size_t>>(id, (*graph).Edges(id)));
     }
   }
 
   for (const auto& [i, value] : firstPart) {
-    g.insert(std::pair<size_t,
+    params.g.insert(std::pair<size_t,
     std::unordered_set<size_t>>(i, value));
   }
 
-  mt.assign(GraphMaxId(graph) + 2, -1);
+  params.mt.assign(GraphMaxId(*graph) + 2, -1);
   for (const auto& [i, value] : firstPart)
     for (const auto& value : firstPart[i])
-      if (mt[value] == -1) {
-        mt[value] = i;
+      if (params.mt[value] == -1) {
+        params.mt[value] = i;
         used1[i] = true;
         break;
       }
 
   for (const auto& [i, value] : firstPart) {
     if (used1[i])  continue;
-    used.assign(GraphMaxId(graph)+2, false);
-    try_kuhn(i, params);
+    params.used.assign(GraphMaxId(*graph)+2, false);
+    try_kuhn(i, &params);
   }
 
   for (const auto& [i, value] : secondPart)
-    if (mt[i] != -1) {
-      edgesHelp.push_back({ mt[i], i });
+    if (params.mt[i] != -1) {
+      edgesHelp.push_back({ params.mt[i], i });
     }
 
   *resEdges = edgesHelp;
