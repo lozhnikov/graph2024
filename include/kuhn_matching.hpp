@@ -8,7 +8,6 @@
 
 #ifndef INCLUDE_KUHN_MATCHING_HPP_
 #define INCLUDE_KUHN_MATCHING_HPP_
-#include "graph.hpp"
 #include <iostream>
 #include <vector>
 #include <unordered_map>
@@ -17,6 +16,13 @@
 #include <unordered_set>
 
 namespace graph {
+
+struct Params {
+    std::vector<int> mt;
+    std::vector<char> used;
+    std::unordered_map<size_t, std::unordered_set<size_t>> g;
+};
+
 bool HasCommonElement(const std::unordered_set<size_t>& set1,
   const std::unordered_set<size_t>& set2) {
   for (int element : set1) {
@@ -27,13 +33,15 @@ bool HasCommonElement(const std::unordered_set<size_t>& set1,
   return false;
 }
 
-bool try_kuhn(size_t v, std::unordered_map<size_t,std::unordered_set<size_t>>& g,
-std::vector<int>& mt, std::vector<char>& used) {
+bool try_kuhn(size_t v, Params* params) {
+  std::vector<int>& mt = params->mt;
+  std::vector<char>& used = params->used;
+  std::unordered_map<size_t, std::unordered_set<size_t>>& g = params->g;
   if (used[v])  return false;
   used[v] = true;
   for (const auto& value : g[v]) {
     size_t to = value;
-    if (mt[to] == -1 || try_kuhn(mt[to],g,mt,used)) {
+    if (mt[to] == -1 || try_kuhn(mt[to],params)) {
       mt[to] = v;
       return true;
     }
@@ -60,9 +68,10 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
   std::vector<char> used1((int)GraphMaxId(graph) + 2);
-  std::unordered_map<size_t, std::unordered_set<size_t>> g;
-  std::vector<int> mt;
-  std::vector<char> used((int)GraphMaxId(graph) + 2);
+  Params* params;
+  std::unordered_map<size_t, std::unordered_set<size_t>>& g = params->g;
+  std::vector<int>& mt = params->mt;
+  std::vector<char>& used = params->used;
 
   for (size_t id : graph.Vertices()) {
     if (graph.Edges(id).empty() == true
@@ -102,8 +111,8 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
 
   for (const auto& [i, value] : firstPart) {
     if (used1[i])  continue;
-    used.assign(GraphMaxId(graph), false);
-    try_kuhn(i, g, mt, used);
+    used.assign(GraphMaxId(graph)+2, false);
+    try_kuhn(i, params);
   }
 
   for (const auto& [i, value] : secondPart)
