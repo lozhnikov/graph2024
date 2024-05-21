@@ -21,21 +21,21 @@ int KuhnMatchingMethod(const nlohmann::json& input, nlohmann::json* output) {
 
   if (graphType == "Graph") {
     return KuhnMatchingMethodHelper<Graph>(input, output);
-  }else if (graphType == "OrientedGraph"){
+  } else if (graphType == "OrientedGraph") {
     return KuhnMatchingMethodHelper<OrientedGraph>(input, output);
-  }else if (graphType == "WeightedGraph") {
+  } else if (graphType == "WeightedGraph") {
     std::string weightType = input.at("weight_type");
     if (weightType == "int") {
       return KuhnMatchingMethodHelper<WeightedGraph<int>>(input, output);
-    }else {
+    } else {
       return -1;
     }
-  }else if (graphType == "WeightedOrientedGraph") {
+  } else if (graphType == "WeightedOrientedGraph") {
     std::string weightType = input.at("weight_type");
     if (weightType == "int") {
       return KuhnMatchingMethodHelper<WeightedOrientedGraph<int>>(input,
       output);
-    }else {
+    } else {
       return -1;
     }
   }

@@ -41,7 +41,7 @@ bool try_kuhn(size_t v, Params* params) {
   used[v] = true;
   for (const auto& value : g[v]) {
     size_t to = value;
-    if (mt[to] == -1 || try_kuhn(mt[to],params)) {
+    if (mt[to] == -1 || try_kuhn(mt[to], params)) {
       mt[to] = v;
       return true;
     }
@@ -67,7 +67,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1((int)GraphMaxId(*graph) + 2);
+  std::vector<char> used1(GraphMaxId(*graph) + 2);
   Params params;
 
   for (size_t id : (*graph).Vertices()) {
@@ -86,7 +86,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
       firstPart.insert(std::pair<size_t,
         std::unordered_set<size_t>>(id, (*graph).Edges(id)));
       minVert.insert(id);
-    }else {
+    } else {
       secondPart.insert(std::pair<size_t,
         std::unordered_set<size_t>>(id, (*graph).Edges(id)));
     }
