@@ -24,26 +24,22 @@ void TestKuhnMatching(httplib::Client* cli) {
 
 static void SimpleTest(httplib::Client* cli) {
   nlohmann::json tmp;
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<> vert1(0, 3);
-  std::uniform_int_distribution<> vert2(4, 7);
-
 
   tmp["graph_type"] = "Graph";
-  tmp["vertices"] = std::vector<int>{ 11, 17, 52, 33, 42, 15, 46, 67 };
+  tmp["vertices"] = std::vector<int>{ 0, 1, 2, 3, 4, 5, 6, 7 };
 
-  tmp["edges"][0]["from"] = 11;
-  tmp["edges"][0]["to"] = 15;
+  tmp["edges"][0]["from"] = 0;
+  tmp["edges"][0]["to"] = 4;
 
-  tmp["edges"][1]["from"] = 11;
-  tmp["edges"][1]["to"] = 42;
+  tmp["edges"][1]["from"] = 1;
+  tmp["edges"][1]["to"] = 5;
 
-  tmp["edges"][2]["from"] = 52;
-  tmp["edges"][2]["to"] = 46;
+  tmp["edges"][2]["from"] = 2;
+  tmp["edges"][2]["to"] = 6;
 
-  tmp["edges"][3]["from"] = 33;
-  tmp["edges"][3]["to"] = 67;
+  tmp["edges"][3]["from"] = 3;
+  tmp["edges"][3]["to"] = 7;
+
 
   std::string input = tmp.dump();
 
@@ -57,7 +53,7 @@ static void SimpleTest(httplib::Client* cli) {
 
   std::vector<std::pair<size_t, size_t>> result = output.at("result");
 
-  std::unordered_set<size_t> expected = { 11, 42, 52, 46, 33, 67 };
+  std::unordered_set<size_t> expected = { 3, 7, 2, 6, 1, 5, 0, 4 };
   std::unordered_set<size_t> resultEdges;
 
   for (int i = 0; i < result.size(); ++i) {
