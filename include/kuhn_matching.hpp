@@ -18,8 +18,8 @@
 namespace graph {
 
 struct Params {
-    std::vector<int> mt;
-    std::vector<char> used;
+    std::unordered_map < size_t, int> mt;
+    std::unordered_map < size_t, int> used;
     std::unordered_map<size_t, std::unordered_set<size_t>> g;
 };
 
@@ -33,30 +33,20 @@ bool HasCommonElement(const std::unordered_set<size_t>& set1,
   return false;
 }
 
-bool try_kuhn(size_t v, Params* params) {
-  std::vector<int>& mt = params->mt;
-  std::vector<char>& used = params->used;
+bool TryKuhn(size_t v, Params* params) {
+  std::unordered_map < size_t, int>& mt = params->mt;
+  std::unordered_map < size_t, int>& used = params->used;
   std::unordered_map<size_t, std::unordered_set<size_t>>& g = params->g;
-  if (used[v])  return false;
-  used[v] = true;
+  if (used[v] == 1)  return false;
+  used[v] = 1;
   for (const auto& value : g[v]) {
     size_t to = value;
-    if (mt[to] == -1 || try_kuhn(mt[to], params)) {
+    if (mt[to] == -1 || TryKuhn(mt[to], params)) {
       mt[to] = v;
       return true;
     }
   }
   return false;
-}
-
-template<typename GraphType>
-size_t GraphMaxId(const GraphType& graph) {
-  size_t maxVertex = *(graph.Vertices().begin());
-  for (size_t id : graph.Vertices()) {
-    if (maxVertex < id)
-      maxVertex = id;
-  }
-  return maxVertex;
 }
 
 template<typename GraphType>
@@ -67,7 +57,7 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
   std::unordered_map<size_t, std::unordered_set<size_t>> firstPart;
   std::unordered_map<size_t, std::unordered_set<size_t>> secondPart;
   std::vector<size_t> helper;
-  std::vector<char> used1(GraphMaxId(*graph) + 2);
+  std::unordered_map < size_t, int> used1;
   Params params;
 
   for (size_t id : (*graph).Vertices()) {
@@ -79,6 +69,10 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
 
   for (size_t id : helper) {
     (*graph).RemoveVertex(id);
+  }
+
+  for (size_t id : (*graph).Vertices()) {
+    used1.insert({ id, -1 });
   }
 
   for (size_t id : (*graph).Vertices()) {
@@ -97,19 +91,24 @@ std::vector<std::pair<size_t, size_t>>* resEdges) {
     std::unordered_set<size_t>>(i, value));
   }
 
-  params.mt.assign(GraphMaxId(*graph) + 2, -1);
+  for (size_t id : (*graph).Vertices()) {
+    params.mt.insert({id, -1});
+  }
+
   for (const auto& [i, value] : firstPart)
     for (const auto& value : firstPart[i])
       if (params.mt[value] == -1) {
         params.mt[value] = i;
-        used1[i] = true;
+        used1[i] = 1;
         break;
       }
 
   for (const auto& [i, value] : firstPart) {
-    if (used1[i])  continue;
-    params.used.assign(GraphMaxId(*graph)+2, false);
-    try_kuhn(i, &params);
+    if (used1[i] == 1)  continue;
+    for (size_t id : (*graph).Vertices()) {
+      params.used.insert({ id, -1 });
+    }
+    TryKuhn(i, &params);
   }
 
   for (const auto& [i, value] : secondPart)
