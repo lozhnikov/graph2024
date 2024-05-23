@@ -40,20 +40,10 @@ int main(int argc, char* argv[]) {
 
   /* Сюда нужно вставить вызов набора тестов для алгоритма. */
 
-<<<<<<< HEAD
   TestMyAlgorithmPrims(&cli);
-=======
-  const std::string body = u8" {\"0\":[1,2], \"1\":[0,2], \"2\":[0,1,3], \"3\":[2,4,5,6,7], \"4\":[3,5], \"5\":[3,4,9], \"6\":[3,7], \"7\":[3,6,8], \"8\":[7], \"9\":[5]} ";
-  
-  auto res_post = cli.Post("/find_bridges", body, "application/json");
-  const std::string result = u8"{\" 2\":\"3\",\"3\":\"2\",\"5\":\"9\",\"7\":\"8\",\"8\":\"7\",\"9\":\"5\"}";
 
-  REQUIRE_EQUAL(res_post->body, result);
-  /*
-  if (res_post->body == result ) std::cout << "Bce Ok" << std::endl;
-    else std::cout << res_post->body << std::endl;
-    */
->>>>>>> 7ede227 (Первая вариант задачи поиска мостов в графе)
+  TestFindBridges(&cli);
+
 
   /* Конец вставки. */
 

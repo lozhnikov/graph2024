@@ -1,5 +1,5 @@
-#ifndef LIB_GRAPH_BRIDGE_DETECTOR_HPP_
-#define LIB_GRAPH_BRIDGE_DETECTOR_HPP_
+#ifndef INCLUDE_BRIDGE_FINDER_HPP_
+#define INCLUDE_BRIDGE_FINDER_HPP_
 
 #include <algorithm>
 #include <iostream>
@@ -10,47 +10,48 @@
 
 namespace graph {
 
-void Dfs_helper(size_t v, std::unordered_map<size_t, bool>& used,
-                graph::Graph& Gr, std::unordered_map<size_t, size_t>& tin,
-                std::unordered_map<size_t, size_t>& fup, size_t& dfs_timer, std::unordered_map<size_t,size_t>& result,
+void DfsHelper(size_t v, std::unordered_map<size_t, bool>& used,
+                graph::Graph& gr, std::unordered_map<size_t, size_t>& tIn,
+                std::unordered_map<size_t, size_t>& fUp, size_t& dfsTimer,
+                std::unordered_map<size_t, size_t>& result,
                 size_t p = -1) {
   used[v] = true;  // вершина num_peak посещена
-  fup[v] = tin[v] =
-      dfs_timer++;  // минимальное время поднятия из потомков num_peak
+  fUp[v] = tIn[v] =
+      dfsTimer++;  // минимальное время поднятия из потомков num_peak
   std::unordered_set<size_t> neighbours =
-      Gr.IncomingEdges(v);  // все вершины смежныек с num_peak
+      gr.IncomingEdges(v);  // все вершины смежныек с num_peak
 
   for (auto to : neighbours) {  // проходим все вершины связанные с num_peak
     if (to == p)
       continue;
-    if (used[to])
-      fup[v] = std::min(fup[v], tin[to]);
-    else {
-      Dfs_helper(to, used, Gr, tin, fup, dfs_timer,result, v);
-      fup[v] = std::min(fup[v], fup[to]);
-      if (fup[to] > tin[v]) {
+    if (used[to]) {
+      fUp[v] = std::min(fUp[v], tIn[to]);
+    } else {
+      DfsHelper(to, used, gr, tIn, fUp, dfsTimer, result, v);
+      fUp[v] = std::min(fUp[v], fUp[to]);
+      if (fUp[to] > tIn[v]) {
         result[to] = v;
-        result[v] = to; 
+        result[v] = to;
       }
     }
   }
 }
 
-std::unordered_map<size_t, size_t> bridge_finder(graph::Graph& Gr) {
+std::unordered_map<size_t, size_t> BridgeFinder(graph::Graph& gr) {
   std::unordered_map<size_t, bool> vertices;
-  std::unordered_map<size_t, size_t> time_in;
-  std::unordered_map<size_t, size_t> time_up;
-  std::unordered_map<size_t,size_t> result;
-  VerticesRange tops = Gr.Vertices();
+  std::unordered_map<size_t, size_t> timeIn;
+  std::unordered_map<size_t, size_t> timeUp;
+  std::unordered_map<size_t, size_t> result;
+  VerticesRange tops = gr.Vertices();
   for (auto v : tops) {
     // false - вершина не была посещена
     // true - вершина была посещена
     vertices[v] = false;
   }
-  size_t dfs_timer = 0;
-  for (auto& [key_vertex, is_used] : vertices) {
-    if (!is_used) {
-      Dfs_helper(key_vertex, vertices, Gr, time_in, time_up,dfs_timer, result);
+  size_t dfsTimer = 0;
+  for (auto& [keyVertex, isUsed] : vertices) {
+    if (!isUsed) {
+      DfsHelper(keyVertex, vertices, gr, timeIn, timeUp, dfsTimer, result);
     }
   }
     return result;
@@ -58,4 +59,4 @@ std::unordered_map<size_t, size_t> bridge_finder(graph::Graph& Gr) {
 
 }  // namespace graph
 
-#endif  // LIB_GRAPH_BRIDGE_DETECTOR_HPP_
+#endif  // INCLUDE_BRIDGE_FINDER_HPP_
