@@ -1,8 +1,8 @@
-/**
+ï»¿/**
  * @file my_algorithm_prims_test.hpp
  * @author Aleksei Samarokov
  *
- * Òåñòû äëÿ àëãîğèòìà graph:: KuhnMatching.
+ * Ğ¢ĞµÑÑ‚Ñ‹ Ğ´Ğ»Ñ Ğ°Ğ»Ğ³Ğ¾Ñ€Ğ¸Ñ‚Ğ¼Ğ° graph:: KuhnMatching.
  */
 
 #include <httplib.h>
@@ -69,17 +69,45 @@ static void RandomTest(httplib::Client* cli) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> vert(0, 100);
+  std::unordered_set<size_t> used;
 
   int Vert0 = vert(gen);
-  int Vert1 = vert(gen);
-  int Vert2 = vert(gen);
-  int Vert3 = vert(gen);
-  int Vert4 = vert(gen);
-  int Vert5 = vert(gen);
-  int Vert6 = vert(gen);
-  int Vert7 = vert(gen);
-  int Vert8 = vert(gen);
-  int Vert9 = vert(gen);
+  used.insert(Vert0);
+  do {
+    int Vert1 = vert(gen);
+  } while (used.find(Vert1) != used.end());
+  used.insert(Vert1);
+  do {
+    int Vert2 = vert(gen);
+  } while (used.find(Vert2) != used.end());
+  used.insert(Vert2);
+  do {
+    int Vert3 = vert(gen);
+  } while (used.find(Vert3) != used.end());
+  used.insert(Vert3);
+  do {
+    int Vert4 = vert(gen);
+  } while (used.find(Vert4) != used.end());
+  used.insert(Vert4);
+  do {
+    int Vert5 = vert(gen);
+  } while (used.find(Vert5) != used.end());
+  used.insert(Vert5);
+  do {
+    int Vert6 = vert(gen);
+  } while (used.find(Vert6) != used.end());
+  used.insert(Vert6);
+  do {
+    int Vert7 = vert(gen);
+  } while (used.find(Vert7) != used.end());
+  used.insert(Vert7);
+  do {
+    int Vert8 = vert(gen);
+  } while (used.find(Vert8) != used.end());
+  used.insert(Vert8);
+  do {
+    int Vert9 = vert(gen);
+  } while (used.find(Vert9) != used.end());
 
   tmp["graph_type"] = "Graph";
   tmp["vertices"] = std::vector<int>{ Vert0, Vert1, Vert2, Vert3, Vert4,
