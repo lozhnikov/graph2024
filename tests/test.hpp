@@ -41,7 +41,7 @@ void TestMyAlgorithmPrims(httplib::Client* cli);
 /*
  * @brief Набор тестов для метода draph::BridgeFinder
  */
-void TestFindBridges(httplib::Client& cli);
+void TestFindBridges(httplib::Client* cli);
 
 /* Конец вставки. */
 
