@@ -14,7 +14,12 @@ namespace graph {
 
 /* Сюда нужно вставить объявление серверной части алгоритма. */
 
+<<<<<<< HEAD
 int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
+=======
+  void process_find_brigdes(const httplib::Request& req, httplib::Response& res);
+
+>>>>>>> 7ede227 (Первая вариант задачи поиска мостов в графе)
 
 /* Конец вставки. */
 
