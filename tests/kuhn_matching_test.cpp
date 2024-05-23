@@ -1,7 +1,7 @@
-﻿//@file my_algorithm_prims_test.hpp
-//@author Aleksei Samarokov
-//Тесты для алгоритма graph:: KuhnMatching.
- 
+﻿  // @file my_algorithm_prims_test.hpp
+  // @author Aleksei Samarokov
+  // Тесты для алгоритма graph:: KuhnMatching.
+
 
 #include <httplib.h>
 #include <vector>

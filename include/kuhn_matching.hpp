@@ -1,7 +1,6 @@
-﻿//@file include/kuhn_matching.hpp
-//@author Samarokov Aleksei
-//Алгоритм Куна нахождения наибольшего паросочетания в двудольном графе.
- 
+﻿  // @file include/kuhn_matching.hpp
+  // @author Samarokov Aleksei
+  // Алгоритм Куна нахождения наибольшего паросочетания в двудольном графе.
 
 
 #ifndef INCLUDE_KUHN_MATCHING_HPP_
