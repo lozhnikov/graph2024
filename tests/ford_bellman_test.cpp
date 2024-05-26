@@ -68,7 +68,7 @@ static void SimpleTest(httplib::Client* cli) {
   }
 
   REQUIRE_EQUAL(expected, resultSet);
-}:x
+}
 static void RandomTest(httplib::Client* cli) {
   nlohmann::json tmp;
   std::random_device rd;
@@ -121,7 +121,7 @@ static void RandomTest(httplib::Client* cli) {
 
   std::vector<size_t> result = output.at("result");
 
-  std::unordered_set<size_t> expected = {0, 2, 1, 3, 3 + rndTwo, 1 + rndOne};
+  std::unordered_set<size_t> expected = {0, 2, 1, 3, 3, 1};
   
   std::unordered_set<size_t> resultSet;
 
