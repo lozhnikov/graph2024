@@ -7,4 +7,5 @@
 
 Список реализованных алгоритмов:
 \subpage my_algorithm_prims
+\subpage ford_bellman
 */

@@ -37,6 +37,11 @@ void TestWeightedOrientedGraph();
 */
 void TestMyAlgorithmPrims(httplib::Client* cli);
 
+/**
+ * @brief Набор тестов для функции graph::FordBellman.
+ */
+void TestFordBellman(httplib::Client* cli);
+
 /* Конец вставки. */
 
 #endif  // TESTS_TEST_HPP_

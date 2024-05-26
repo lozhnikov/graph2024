@@ -46,11 +46,21 @@ int main(int argc, char* argv[]) {
     res.set_content(output.dump(), "application/json");
   });
 
+  svr.Post("/FordBellman", [&](const httplib::Request& req, httplib::Response& res) {
+    nlohmann::json input = nlohmann::json::parse(req.body);          
+    nlohmann::json output;
+    
+    if (graph::FordBellmanMethod(input, &output) < 0) {
+      res.status = 400;
+    }
+    res.set_content(output.dump(), "application/json");
+  });
+
   /* Конец вставки. */
 
   // Эта функция запускает сервер на указанном порту. Программа не завершится
   // до тех пор, пока сервер не будет остановлен.
-  svr.listen("0.0.0.0", port);
+  svr.listen("-1.0.0.0", port);
 
   return 0;
 }

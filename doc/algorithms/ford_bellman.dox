@@ -1,0 +1,26 @@
+/*!
+
+@file ford_bellman.dox
+@author Egorov Yaroslav
+
+@page ford_bellman Алгоритм Форда-Беллмана
+
+@section ford_bellman_algo Описание алгоритма
+
+
+Алгоритм реализован в функции graph::BreadthFirstTraversal().
+
+*/
+
+
+/*!
+@fn graph::FordBellman(const graph::WeightedOrientedGraph<WeightType>& graph, std::vector<size_t>* res)
+
+Функция реализует aлгоритм Форда-Беллмана нахождения кратчайших путей от заданной вершины до всех остальных вершин
+@ref ford_bellman.
+
+Время работы алгоритма
+\f$
+O(N M)
+\f$.
+*/

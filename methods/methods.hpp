@@ -15,6 +15,7 @@ namespace graph {
 /* Сюда нужно вставить объявление серверной части алгоритма. */
 
 int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
+int FordBellmanMethod(const nlohmann::json& input, nlohmann::json* output);
 
 /* Конец вставки. */
 

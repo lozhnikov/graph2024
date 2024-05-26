@@ -109,12 +109,14 @@ include_directories(${GRAPH_INCLUDE_DIRS})
 
 add_executable(
   graph_server
+  include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  methods/ford_bellman_method.cpp
   methods/main.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
@@ -137,12 +139,14 @@ target_link_libraries(graph_server ${GRAPH_LIBS})
 
 add_executable(
   graph_test
+  include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  tests/ford_bellman_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/main.cpp
