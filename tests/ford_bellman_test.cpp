@@ -77,32 +77,32 @@ static void RandomTest(httplib::Client* cli) {
 
   tmp["graph_type"] = "WeightedGraph";
   tmp["weight_type"] = "double";
-  tmp["vertices"] = std::vector<int> {0, 1, 2, 3, 4, 5};
+  tmp["vertices"] = std::vector<int> {0, 1, 2, 3, 4};
 
   tmp["edges"][0]["from"] = 0;
   tmp["edges"][0]["to"] = 1;
-  tmp["edges"][0]["weight"] = 3;
+  tmp["edges"][0]["weight"] = 1;
   
   tmp["edges"][0]["from"] = 0;
   tmp["edges"][0]["to"] = 2;
-  tmp["edges"][0]["weight"] = 1;
-  
-  tmp["edges"][0]["from"] = 2;
-  tmp["edges"][0]["to"] = 1;
-  tmp["edges"][0]["weight"] = 1;
-  
-  tmp["edges"][0]["from"] = 2;
-  tmp["edges"][0]["to"] = 3;
-  tmp["edges"][0]["weight"] = 4;
-
-  tmp["edges"][0]["from"] = 1;
-  tmp["edges"][0]["to"] = 3;
-  tmp["edges"][0]["weight"] = 1; 
+  tmp["edges"][0]["weight"] = 2;
   
   double rndOne = weight(gen);
   tmp["edges"][0]["from"] = 2;
-  tmp["edges"][0]["to"] = 5;
-  tmp["edges"][0]["weight"] = rndOne; 
+  tmp["edges"][0]["to"] = 1;
+  tmp["edges"][0]["weight"] = rndOne;
+  
+  tmp["edges"][0]["from"] = 2;
+  tmp["edges"][0]["to"] = 3;
+  tmp["edges"][0]["weight"] = 3;
+
+  tmp["edges"][0]["from"] = 1;
+  tmp["edges"][0]["to"] = 4;
+  tmp["edges"][0]["weight"] = 1; 
+  
+  tmp["edges"][0]["from"] = 2;
+  tmp["edges"][0]["to"] = 4;
+  tmp["edges"][0]["weight"] = 2;
   
   double rndTwo = weight(gen);
   tmp["edges"][0]["from"] = 3;
@@ -121,7 +121,7 @@ static void RandomTest(httplib::Client* cli) {
 
   std::vector<size_t> result = output.at("result");
 
-  std::unordered_set<size_t> expected = {0, 2, 1, 3, 3, 1};
+  std::unordered_set<size_t> expected = {0, 1, 2, 5, 2};
   
   std::unordered_set<size_t> resultSet;
 
