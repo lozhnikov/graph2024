@@ -71,43 +71,34 @@ static void SimpleTest(httplib::Client* cli) {
 }
 static void RandomTest(httplib::Client* cli) {
   nlohmann::json tmp;
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<double> weight(7.0, 10.0);
+  std::random_device rd1;
+  std::mt19937 gen1(rd1());
+  std::uniform_real_distribution<double> weight1(9.0, 10.0);
 
-  tmp["graph_type"] = "WeightedGraph";
+  tmp["graph_type"] = "WeightedOrientedGraph";
   tmp["weight_type"] = "double";
   tmp["vertices"] = std::vector<int> {0, 1, 2, 3, 4};
 
   tmp["edges"][0]["from"] = 0;
   tmp["edges"][0]["to"] = 1;
-  tmp["edges"][0]["weight"] = 1;
-  
-  tmp["edges"][0]["from"] = 0;
-  tmp["edges"][0]["to"] = 2;
-  tmp["edges"][0]["weight"] = 2;
-  
-  double rndOne = weight(gen);
-  tmp["edges"][0]["from"] = 2;
-  tmp["edges"][0]["to"] = 1;
-  tmp["edges"][0]["weight"] = rndOne;
-  
-  tmp["edges"][0]["from"] = 2;
-  tmp["edges"][0]["to"] = 3;
-  tmp["edges"][0]["weight"] = 3;
+  tmp["edges"][0]["weight"] = 1.0;
 
-  tmp["edges"][0]["from"] = 1;
-  tmp["edges"][0]["to"] = 4;
-  tmp["edges"][0]["weight"] = 1; 
-  
-  tmp["edges"][0]["from"] = 2;
-  tmp["edges"][0]["to"] = 4;
-  tmp["edges"][0]["weight"] = 2;
-  
-  double rndTwo = weight(gen);
-  tmp["edges"][0]["from"] = 3;
-  tmp["edges"][0]["to"] = 4;
-  tmp["edges"][0]["weight"] = rndTwo;
+  tmp["edges"][1]["from"] = 1;
+  tmp["edges"][1]["to"] = 2;
+  tmp["edges"][1]["weight"] = 2.0;
+
+  double w = weight1(gen1);   
+  tmp["edges"][2]["from"] = 1;
+  tmp["edges"][2]["to"] = 3;
+  tmp["edges"][2]["weight"] = (double)w;
+
+  tmp["edges"][3]["from"] = 4;
+  tmp["edges"][3]["to"] = 3;
+  tmp["edges"][3]["weight"] = 1.0;
+
+  tmp["edges"][4]["from"] = 2;
+  tmp["edges"][4]["to"] = 4;
+  tmp["edges"][4]["weight"] = 2.0;
 
   std::string input = tmp.dump();
 
@@ -119,12 +110,12 @@ static void RandomTest(httplib::Client* cli) {
 
   nlohmann::json output = nlohmann::json::parse(res->body);
 
-  std::vector<size_t> result = output.at("result");
+  std::vector<double> result = output.at("result");
 
-  std::unordered_set<size_t> expected = {0, 1, 2, 5, 2};
+  std::unordered_set<double> expected = {0, 1, 3, 6, 5};
   
-  std::unordered_set<size_t> resultSet;
-
+  std::unordered_set<double> resultSet;
+  
   for(int id : result) {
     resultSet.insert(id);
   }

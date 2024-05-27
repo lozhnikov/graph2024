@@ -36,11 +36,7 @@ int FordBellmanHelper(const graph::WeightedOrientedGraph<WeightType>&
 		graph) {
   int m = 0;
   for (size_t j : graph.Vertices()) {
-    std::cout << "vertex j = " << j << std::endl;
-    for (size_t neighbour : graph.Edges(j)) {
-      std::cout << "neighbour edges = " << neighbour << std::endl;
-      std::cout << "weight edges (" << j << ", " << neighbour << ") = " << 
-	      graph.EdgeWeight(j, neighbour) << std::endl;
+      for (size_t neighbour : graph.Edges(j)) {
       ++m;
      }
   }
@@ -52,7 +48,7 @@ int FordBellmanHelper(const graph::WeightedOrientedGraph<WeightType>&
  */
 template<typename WeightType>
 void FordBellman(const graph::WeightedOrientedGraph<WeightType>& graph, 
-		std::vector<size_t>* res) {
+		std::vector<WeightType>* res) {
   int m = FordBellmanHelper(graph);
   std::vector<edge<WeightType>> e(m);
   res->resize(m);

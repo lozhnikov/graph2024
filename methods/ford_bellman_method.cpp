@@ -30,7 +30,7 @@ namespace graph {
   int FordBellmanMethodHelper(const nlohmann::json& input, 
 		  nlohmann::json* output) {
     graph::WeightedOrientedGraph<WeightType> graph;
-    std::vector<size_t> result;
+    std::vector<WeightType> result;
 
     for (auto& vertex : input.at("vertices")) {
       graph.AddVertex(vertex);
