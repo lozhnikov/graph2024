@@ -7,11 +7,9 @@ namespace graph {
   template<typename GraphType>
   int FordBellmanMethodHelper(const nlohmann::json& input,
   nlohmann::json* output);
-  
   int FordBellmanMethod(const nlohmann::json& input,
   nlohmann::json* output) {
-  std::string graphType = input.at("graph_type");
-  
+  std::string graphType = input.at("graph_type");  
   if (graphType != "WeightedOrientedGraph") {
     return -1;
   }
