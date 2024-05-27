@@ -5,11 +5,11 @@ using graph::WeightedOrientedGraph;
 
 namespace graph {
   template<typename GraphType>
-  int FordBellmanMethodHelper(const nlohmann::json& input, 
-		  nlohmann::json* output);
+  int FordBellmanMethodHelper(const nlohmann::json& input,
+  nlohmann::json* output);
   
-  int FordBellmanMethod(const nlohmann::json& input, 
-		  nlohmann::json* output) {
+  int FordBellmanMethod(const nlohmann::json& input,
+  nlohmann::json* output) {
   std::string graphType = input.at("graph_type");
   
   if (graphType != "WeightedOrientedGraph") {
@@ -27,8 +27,8 @@ namespace graph {
   }
 
   template<typename WeightType>
-  int FordBellmanMethodHelper(const nlohmann::json& input, 
-		  nlohmann::json* output) {
+  int FordBellmanMethodHelper(const nlohmann::json& input,
+  nlohmann::json* output) {
     graph::WeightedOrientedGraph<WeightType> graph;
     std::vector<WeightType> result;
 
@@ -41,10 +41,10 @@ namespace graph {
     }
 
     FordBellman<WeightType>(graph, &result);
-    
+
     for (size_t i = 0; i < result.size(); ++i) {
       (*output)["result"].push_back(result[i]);
     }
     return 0;
   }
-}
+}  // namespace graph
