@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
 
   svr.Post("/find_bridges",
           [](const httplib::Request& req, httplib::Response& res) {
-            graph::ProcessFindBrigdes(req, res);
+            graph::ProcessFindBrigdes(&req, &res);
           });
   // Конец вставки.
 

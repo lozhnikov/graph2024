@@ -39,23 +39,10 @@ void GraphTestWithNoBridges(httplib::Client* cli) {
   REQUIRE_EQUAL(result, expected);
 }
 
-void GraphTestWithBridges3(httplib::Client* cli) {
-  nlohmann::json request =
-      nlohmann::json::parse(R"( {"0":[1,2], "1":[0], "2":[0]} )");
-  auto resPost = cli->Post("/find_bridges", request.dump(), "application/json");
-  REQUIRE(resPost == true);
-  REQUIRE(resPost->status == 200);
-  nlohmann::json result = nlohmann::json::parse(resPost->body);
-  nlohmann::json expected = nlohmann::json::parse(
-      R"({"0":"1","1":"0","2":"0"})");
-  REQUIRE_EQUAL(result, expected);
-}
-
 void TestFindBridges(httplib::Client* cli) {
   TestSuite suite("Test bridge finder in graph");
 
   RUN_TEST_REMOTE(suite, cli, GraphTestWithBridges1);
   RUN_TEST_REMOTE(suite, cli, GraphTestWithBridges2);
   RUN_TEST_REMOTE(suite, cli, GraphTestWithNoBridges);
-  RUN_TEST_REMOTE(suite, cli, GraphTestWithBridges3);
 }

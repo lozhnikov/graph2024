@@ -17,7 +17,7 @@ namespace graph {
 
 int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
 
-void ProcessFindBrigdes(const httplib::Request& req, httplib::Response& res);
+void ProcessFindBrigdes(const httplib::Request* req, httplib::Response* res);
 
 
 
