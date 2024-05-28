@@ -36,6 +36,7 @@ void TestWeightedOrientedGraph();
 * @brief Набор тестов для функции graph::MyAlgorithmPrims.
 */
 void TestMyAlgorithmPrims(httplib::Client* cli);
+void TestMatchingEdmonds(httplib::Client *cli);
 
 /* Конец вставки. */
 

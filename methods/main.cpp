@@ -46,6 +46,13 @@ int main(int argc, char* argv[]) {
     res.set_content(output.dump(), "application/json");
   });
 
+  svr.Post("/MatchingEdmonds",
+           [&](const httplib::Request &req, httplib::Response &res) {
+    const nlohmann::json js = nlohmann::json::parse(req.body);
+    nlohmann::json *result = new nlohmann::json();
+    graph::MatchingEdmondsMethod(js, result);
+    res.set_content((*result).dump(), "application/json");
+  });
   /* Конец вставки. */
 
   // Эта функция запускает сервер на указанном порту. Программа не завершится
