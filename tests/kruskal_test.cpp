@@ -3,19 +3,23 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <random>
 #include <unordered_set>
 #include <nlohmann/json.hpp>
+#include <iostream>
 #include "test_core.hpp"
 
 using std::vector;
 using std::pair;
 
 static void SimpleTest(httplib::Client* cli);
+static void RandomTest(httplib::Client* cli);
 
 void TestKruskal(httplib::Client* cli) {
   TestSuite suite("TestKruskal");
 
   RUN_TEST_REMOTE(suite, cli, SimpleTest);
+  RUN_TEST_REMOTE(suite, cli, RandomTest);
 }
 
 bool ComparePairs(const pair<int, int>& p1, const pair<int, int>& p2) {
@@ -77,4 +81,87 @@ static void SimpleTest(httplib::Client* cli) {
 
   REQUIRE_EQUAL(true, CompareGraphs(result, expected));
 
+}
+
+static void RandomTest(httplib::Client* cli)
+{
+  int numOfTests = 10;
+  const vector<pair<int,int>> expected = {
+    {1, 2},
+    {1, 3},
+    {2, 5},
+    {4, 6},
+    {1, 4},
+    {4, 7}
+  };
+
+  const vector<pair<int,int>> edges = {
+    {1, 5},
+    {1, 6},
+    {1, 7},
+    {2, 3},
+    {2, 4},
+    {2, 6},
+    {2, 7},
+    {3, 4},
+    {3, 5},
+    {3, 6},
+    {3, 7},
+    {4, 5},
+    {5, 6},
+    {5, 7},
+    {6, 7}
+  };
+  int numOfVertices = 7;
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<int> coinFlip(0, 1);
+  std::uniform_int_distribution<int> randomWeight(10, 30);
+
+  for (int i = 0; i < numOfTests; i++) {
+
+    vector<pair<int,pair<int,int>>> g = {
+      {1, {1, 2}},
+      {2, {1, 3}},
+      {3, {2, 5}},
+      {4, {4, 6}},
+      {5, {1, 4}},
+      {6, {4, 7}}
+    };
+
+    for (pair<int,int> e : edges) {
+      if (coinFlip(gen) == 1) {
+        int w = randomWeight(gen);
+        pair<int,pair<int,int>> p;
+        p.first = w;
+        p.second = e;
+        g.push_back(p);
+      }
+    }
+
+    auto rng = std::default_random_engine {};
+    std::shuffle(std::begin(g), std::end(g), rng);
+
+    nlohmann::json temp;
+    int j = 0;
+    for (pair<int,pair<int,int>> e : g) {
+      temp["graph"][j] = e;
+      j++;
+    }
+    temp["numVertices"] = numOfVertices;
+
+    std::string input = temp.dump();
+
+    auto res = cli->Post("/Kruskal", input, "application/json");
+
+    if (!res) {
+      REQUIRE(false);
+    }
+
+    nlohmann::json output = nlohmann::json::parse(res->body);
+
+    std::vector<std::pair<int,int>> result = output.at("edges");
+
+    REQUIRE_EQUAL(true, CompareGraphs(result, expected));
+  }
 }
