@@ -153,6 +153,7 @@ add_executable(
   tests/test_core.hpp
   tests/weighted_graph_test.cpp
   tests/weighted_oriented_graph_test.cpp
+  tests/algo.hpp
 )
 
 #####################################################################
