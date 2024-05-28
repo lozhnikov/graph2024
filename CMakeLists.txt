@@ -111,11 +111,13 @@ add_executable(
   graph_server
   include/graph.hpp
   include/iterators.hpp
+  include/matching_edmonds.hpp
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   methods/main.cpp
+  methods/matching_edmonds_method.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
 )
@@ -139,6 +141,7 @@ add_executable(
   graph_test
   include/graph.hpp
   include/iterators.hpp
+  include/matching_edmonds.hpp
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
@@ -146,6 +149,7 @@ add_executable(
   tests/graph_test.cpp
   tests/io.hpp
   tests/main.cpp
+  tests/matching_edmonds_test.cpp
   tests/my_algorithm_prims_test.cpp
   tests/oriented_graph_test.cpp
   tests/test.hpp
