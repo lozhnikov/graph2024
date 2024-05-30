@@ -6,45 +6,47 @@
 #include <algorithm>
 
 #include <set>
+#include <unordered_map>
 #include <weighted_graph.hpp>
 
 namespace graph {
 
   struct DisjointSet {
-    int *parent, *rank;
-    int n;
+    std::unordered_map<int, int> parent;
+    std::unordered_map<int, int> rank;
 
-    DisjointSet(int n) {
-      this->n = n;
-      parent = new int[n+1];
-      rank = new int[n+1];
-
-      for (int i = 0; i <= n; i++) {
-        rank[i] = 0;
-        parent[i] = i;
-      }
+    void makeSet(int x) {
+        parent[x] = x;
+        rank[x] = 0;
     }
 
     int find(int x) {
-      if (x != parent[x])
-        parent[x] = find(parent[x]);
-      return parent[x];
+        if (parent.find(x) == parent.end()) {
+            makeSet(x);
+        }
+        if (x != parent[x]) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
     }
 
     void Union(int x, int y) {
-      int xRoot = find(x);
-      int yRoot = find(y);
+        int xRoot = find(x);
+        int yRoot = find(y);
 
-      if (rank[xRoot] < rank[yRoot])
-        parent[xRoot] = yRoot;
-      else if (rank[xRoot] > rank[yRoot])
-        parent[yRoot] = xRoot;
-      else {
-        parent[yRoot] = xRoot;
-        rank[xRoot]++;
-      }
+        if (xRoot != yRoot) {
+            if (rank[xRoot] < rank[yRoot]) {
+                parent[xRoot] = yRoot;
+            } else if (rank[xRoot] > rank[yRoot]) {
+                parent[yRoot] = xRoot;
+            } else {
+                parent[yRoot] = xRoot;
+                rank[xRoot]++;
+            }
+        }
     }
   };
+
 
   template<typename Weight>
   std::vector<std::pair<int,int>> Kruskal(const graph::WeightedGraph<Weight>& graph) {
@@ -76,7 +78,7 @@ namespace graph {
 
     sort(g.begin(), g.end());
 
-    DisjointSet ds(graph.NumVertices());
+    DisjointSet ds;
 
     for (auto edge : g) {
       int src = edge.second.first;
