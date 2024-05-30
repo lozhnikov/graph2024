@@ -5,37 +5,26 @@
 которое бы соединяло все его вершины, и при этом обладало наименьшим весом (т.е. суммой весов рёбер) из всех возможных.
 Такое поддерево называется минимальным остовным деревом или простом минимальным остовом.
 
-vector<pair<int,int>> Kruskal(vector<pair<int,pair<int,int>>> g, int numVertices);
+std::vector<std::pair<int,int>> Kruskal(const graph::WeightedGraph<Weight>& graph);
 
 Пример использования:
 
-vector<pair<int,pair<int,int>>> input =
-{
-  {1, {1, 2}}, // {вес, {вершина1, вершина2}}
-  {1, {1, 3}},
-  {2, {2, 4}},
-  {3, {2, 5}},
-  {4, {2, 3}},
-  {1, {5, 6}},
-  {5, {3, 6}},
-  {2, {3, 7}}
-};
+WeightedGraph<int> g;
+g.AddVertex(1);
+g.AddVertex(2);
+g.AddVertex(3);
+g.AddVertex(4);
+g.AddEdge(1,2,4);
+g.AddEdge(2,3,1);
+g.AddEdge(3,1,3);
+g.AddEdge(3,4,2);
 
-int numVertices = 7; // число вершин
-
-vector<pair<int,int>> output = Kruskal(input, numVertices);
-
-for (pair<int,int> e : output) {
-  cout << "{" << e.first << ", " << e.second << "}" << endl;
-}
+std::vector<std::pair<int,int>> result = Kruskal(g);
     
 Результат:
 
-{1, 2} //{вершина1, вершина2}
-{1, 3}
-{5, 6}
-{2, 4}
-{3, 7}
-{2, 5}
+{1, 3} //{вершина1, вершина2}
+{2, 3}
+{3, 4}
 
 */

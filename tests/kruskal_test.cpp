@@ -22,13 +22,14 @@ void TestKruskal(httplib::Client* cli) {
   RUN_TEST_REMOTE(suite, cli, RandomTest);
 }
 
-bool ComparePairs(const pair<int, int>& p1, const pair<int, int>& p2) {
+bool ComparePairs(const pair<int,int>& p1, const pair<int,int>& p2) {
   return (p1.first == p2.first && p1.second == p2.second) ||
   (p1.first == p2.second && p1.second == p2.first);
 }
 
 bool CompareGraphs(const vector<pair<int,int>>& graph1,
                    const vector<pair<int,int>>& graph2) {
+
   if (graph1.size() != graph2.size()) {
     return false;
   }
@@ -49,21 +50,45 @@ bool CompareGraphs(const vector<pair<int,int>>& graph1,
 
 static void SimpleTest(httplib::Client* cli) {
 
-  std::string input = R"(
-    {
-      "graph": [
-        [1, [1, 2]],
-        [1, [1, 3]],
-        [2, [2, 4]],
-        [3, [2, 5]],
-        [4, [2, 3]],
-        [1, [5, 6]],
-        [5, [3, 6]],
-        [2, [3, 7]]
-      ],
-      "numVertices": 7
-    }
-  )";
+  nlohmann::json tmp;
+
+  tmp["graph_type"] = "WeightedGraph";
+  tmp["weight_type"] = "int";
+  tmp["vertices"] = std::vector<int> {1, 2, 3, 4, 5, 6, 7};
+
+  tmp["edges"][0]["from"] = 1;
+  tmp["edges"][0]["to"] = 2;
+  tmp["edges"][0]["weight"] = 1;
+
+  tmp["edges"][1]["from"] = 1;
+  tmp["edges"][1]["to"] = 3;
+  tmp["edges"][1]["weight"] = 1;
+
+  tmp["edges"][2]["from"] = 2;
+  tmp["edges"][2]["to"] = 4;
+  tmp["edges"][2]["weight"] = 2;
+
+  tmp["edges"][3]["from"] = 2;
+  tmp["edges"][3]["to"] = 5;
+  tmp["edges"][3]["weight"] = 3;
+
+  tmp["edges"][4]["from"] = 2;
+  tmp["edges"][4]["to"] = 3;
+  tmp["edges"][4]["weight"] = 4;
+
+  tmp["edges"][5]["from"] = 5;
+  tmp["edges"][5]["to"] = 6;
+  tmp["edges"][5]["weight"] = 1;
+
+  tmp["edges"][6]["from"] = 3;
+  tmp["edges"][6]["to"] = 6;
+  tmp["edges"][6]["weight"] = 5;
+
+  tmp["edges"][7]["from"] = 3;
+  tmp["edges"][7]["to"] = 7;
+  tmp["edges"][7]["weight"] = 2;
+
+  std::string input = tmp.dump();
 
   auto res = cli->Post("/Kruskal", input, "application/json");
 
@@ -75,7 +100,7 @@ static void SimpleTest(httplib::Client* cli) {
 
   std::vector<std::pair<int,int>> result = output.at("edges");
 
-  vector<pair<int,int>> expected =
+  std::vector<std::pair<int,int>> expected =
   {{1, 2}, {1, 3}, {2, 4},
    {2, 5}, {5, 6}, {3, 7}};
 
@@ -112,7 +137,7 @@ static void RandomTest(httplib::Client* cli)
     {5, 7},
     {6, 7}
   };
-  int numOfVertices = 7;
+
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<int> coinFlip(0, 1);
@@ -142,15 +167,21 @@ static void RandomTest(httplib::Client* cli)
     auto rng = std::default_random_engine {};
     std::shuffle(std::begin(g), std::end(g), rng);
 
-    nlohmann::json temp;
+    nlohmann::json tmp;
+
+    tmp["graph_type"] = "WeightedGraph";
+    tmp["weight_type"] = "int";
+    tmp["vertices"] = std::vector<int> {1, 2, 3, 4, 5, 6, 7};
+
     int j = 0;
     for (pair<int,pair<int,int>> e : g) {
-      temp["graph"][j] = e;
+      tmp["edges"][j]["from"] = e.second.first;
+      tmp["edges"][j]["to"] = e.second.second;
+      tmp["edges"][j]["weight"] = e.first;
       j++;
     }
-    temp["numVertices"] = numOfVertices;
 
-    std::string input = temp.dump();
+    std::string input = tmp.dump();
 
     auto res = cli->Post("/Kruskal", input, "application/json");
 

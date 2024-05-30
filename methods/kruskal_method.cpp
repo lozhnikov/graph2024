@@ -5,34 +5,45 @@
 #include <utility>
 #include <random>
 #include <algorithm>
+#include <string>
+
+#include <weighted_graph.hpp>
 
 namespace graph {
 
   using nlohmann::json;
   using std::vector;
   using std::pair;
+  using std::string;
 
-  int KruskalMethod(const json& input, json* output)
+  template<typename Weight>
+  int KruskalMethodHelper(const json& input, json* output)
   {
-    vector<pair<int,pair<int,int>>> g;
-
-    for (auto& elem : input.at("graph")) {
-      pair<int,pair<int,int>> p;
-      p.first = elem[0];
-      p.second.first = elem[1][0];
-      p.second.second = elem[1][1];
-      g.push_back(p);
+    graph::WeightedGraph<Weight> g;
+    for (auto vertex : input.at("vertices")) {
+        g.AddVertex(vertex);
     }
-
-    vector<pair<int,int>> t = Kruskal(g, input["numVertices"]);
-
+    for (auto edge : input.at("edges")) {
+        g.AddEdge(edge.at("from"), edge.at("to"), edge.at("weight"));
+    }
+    vector<pair<int,int>> t = Kruskal<Weight>(g);
     int i = 0;
-    for (pair<int,int> e : t) {
+    for (auto e : t) {
       (*output)["edges"][i] = e;
       i++;
     }
-
     return 1;
+  }
+
+  int KruskalMethod(const json& input, json* output) {
+    string weightType = input.at("weight_type");
+      if (weightType == "int") {
+          return KruskalMethodHelper<int>(input, output);
+      } else if (weightType == "double") {
+          return KruskalMethodHelper<double>(input, output);
+      } else {
+          return -1;
+      }
   }
 
 }

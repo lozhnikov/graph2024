@@ -5,10 +5,10 @@
 #include <utility>
 #include <algorithm>
 
-namespace graph {
+#include <set>
+#include <weighted_graph.hpp>
 
-  using std::vector;
-  using std::pair;
+namespace graph {
 
   struct DisjointSet {
     int *parent, *rank;
@@ -46,21 +46,43 @@ namespace graph {
     }
   };
 
-  vector<pair<int,int>> Kruskal(vector<pair<int,pair<int,int>>> g, int numVertices) {
+  template<typename Weight>
+  std::vector<std::pair<int,int>> Kruskal(const graph::WeightedGraph<Weight>& graph) {
 
-    vector<pair<int,int>> result;
+    std::vector<std::pair<int,int>> result;
+
+    std::set<std::pair<Weight,std::pair<int,int>>> s;
+
+    for (auto v1 : graph.Vertices()) {
+      auto vs = graph.Edges(v1);
+      for (auto v2 : vs) {
+        std::pair<Weight,std::pair<int,int>> p;
+        if (v1 < v2) {
+          p.second.first = v1;
+          p.second.second = v2;
+        } else {
+          p.second.first = v2;
+          p.second.second = v1;
+        }
+        p.first = graph.EdgeWeight(v1, v2);
+        s.insert(p);
+      }
+    }
+
+    std::vector<std::pair<Weight,std::pair<int,int>>> g;
+    for (auto e : s) {
+      g.push_back(e);
+    }
 
     sort(g.begin(), g.end());
 
-    DisjointSet ds(numVertices);
+    DisjointSet ds(graph.NumVertices());
 
     for (auto edge : g) {
       int src = edge.second.first;
       int dest = edge.second.second;
-
       int srcSet = ds.find(src);
       int destSet = ds.find(dest);
-
       if (srcSet != destSet) {
         result.push_back({src, dest});
         ds.Union(srcSet, destSet);
@@ -68,6 +90,7 @@ namespace graph {
     }
 
     return result;
+
   }
 
 }
