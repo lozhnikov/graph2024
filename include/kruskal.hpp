@@ -1,5 +1,5 @@
-#ifndef KRUSKAL_HPP_
-#define KRUSKAL_HPP_
+#ifndef INCLUDE_KRUSKAL_HPP_
+#define INCLUDE_KRUSKAL_HPP_
 
 #include <vector>
 #include <utility>
@@ -11,54 +11,54 @@
 
 namespace graph {
 
-  struct DisjointSet {
-    std::unordered_map<int, int> parent;
-    std::unordered_map<int, int> rank;
+struct DisjointSet {
+std::unordered_map<int, int> parent;
+std::unordered_map<int, int> rank;
 
-    void makeSet(int x) {
-        parent[x] = x;
-        rank[x] = 0;
+void makeSet(int x) {
+    parent[x] = x;
+    rank[x] = 0;
+}
+
+int find(int x) {
+    if (parent.find(x) == parent.end()) {
+        makeSet(x);
     }
-
-    int find(int x) {
-        if (parent.find(x) == parent.end()) {
-            makeSet(x);
-        }
-        if (x != parent[x]) {
-            parent[x] = find(parent[x]);
-        }
-        return parent[x];
+    if (x != parent[x]) {
+        parent[x] = find(parent[x]);
     }
+    return parent[x];
+}
 
-    void Union(int x, int y) {
-        int xRoot = find(x);
-        int yRoot = find(y);
+void Union(int x, int y) {
+    int xRoot = find(x);
+    int yRoot = find(y);
 
-        if (xRoot != yRoot) {
-            if (rank[xRoot] < rank[yRoot]) {
-                parent[xRoot] = yRoot;
-            } else if (rank[xRoot] > rank[yRoot]) {
-                parent[yRoot] = xRoot;
-            } else {
-                parent[yRoot] = xRoot;
-                rank[xRoot]++;
-            }
+    if (xRoot != yRoot) {
+        if (rank[xRoot] < rank[yRoot]) {
+            parent[xRoot] = yRoot;
+        } else if (rank[xRoot] > rank[yRoot]) {
+            parent[yRoot] = xRoot;
+        } else {
+            parent[yRoot] = xRoot;
+            rank[xRoot]++;
         }
     }
-  };
+}
+};
 
 
-  template<typename Weight>
-  std::vector<std::pair<int,int>> Kruskal(const graph::WeightedGraph<Weight>& graph) {
+template<typename Weight>
+std::vector<std::pair<int, int>>
+Kruskal(const graph::WeightedGraph<Weight>& graph) {
+    std::vector<std::pair<int, int>> result;
 
-    std::vector<std::pair<int,int>> result;
-
-    std::set<std::pair<Weight,std::pair<int,int>>> s;
+    std::set<std::pair<Weight, std::pair<int, int>>> s;
 
     for (auto v1 : graph.Vertices()) {
       auto vs = graph.Edges(v1);
       for (auto v2 : vs) {
-        std::pair<Weight,std::pair<int,int>> p;
+        std::pair<Weight, std::pair<int, int>> p;
         if (v1 < v2) {
           p.second.first = v1;
           p.second.second = v2;
@@ -71,7 +71,7 @@ namespace graph {
       }
     }
 
-    std::vector<std::pair<Weight,std::pair<int,int>>> g;
+    std::vector<std::pair<Weight, std::pair<int, int>>> g;
     for (auto e : s) {
       g.push_back(e);
     }
@@ -92,9 +92,7 @@ namespace graph {
     }
 
     return result;
-
-  }
-
 }
 
-#endif
+}  //  namespace graph
+#endif  // INCLUDE_KRUSKAL_HPP_

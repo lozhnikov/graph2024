@@ -1,12 +1,12 @@
-#include <kruskal.hpp>
 #include <httplib.h>
 #include <vector>
 #include <utility>
 #include <algorithm>
 #include <random>
 #include <unordered_set>
-#include <nlohmann/json.hpp>
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <kruskal.hpp>
 #include "test_core.hpp"
 
 using std::vector;
@@ -22,20 +22,19 @@ void TestKruskal(httplib::Client* cli) {
   RUN_TEST_REMOTE(suite, cli, RandomTest);
 }
 
-bool ComparePairs(const pair<int,int>& p1, const pair<int,int>& p2) {
+bool ComparePairs(const pair<int, int>& p1, const pair<int, int>& p2) {
   return (p1.first == p2.first && p1.second == p2.second) ||
   (p1.first == p2.second && p1.second == p2.first);
 }
 
-bool CompareGraphs(const vector<pair<int,int>>& graph1,
-                   const vector<pair<int,int>>& graph2) {
-
+bool CompareGraphs(const vector<pair<int, int>>& graph1,
+                   const vector<pair<int, int>>& graph2) {
   if (graph1.size() != graph2.size()) {
     return false;
   }
 
-  vector<pair<int,int>> sortedGraph1 = graph1;
-  vector<pair<int,int>> sortedGraph2 = graph2;
+  vector<pair<int, int>> sortedGraph1 = graph1;
+  vector<pair<int, int>> sortedGraph2 = graph2;
   sort(sortedGraph1.begin(), sortedGraph1.end());
   sort(sortedGraph2.begin(), sortedGraph2.end());
 
@@ -49,7 +48,6 @@ bool CompareGraphs(const vector<pair<int,int>>& graph1,
 }
 
 static void SimpleTest(httplib::Client* cli) {
-
   nlohmann::json tmp;
 
   tmp["graph_type"] = "WeightedGraph";
@@ -98,20 +96,17 @@ static void SimpleTest(httplib::Client* cli) {
 
   nlohmann::json output = nlohmann::json::parse(res->body);
 
-  std::vector<std::pair<int,int>> result = output.at("edges");
+  std::vector<std::pair<int, int>> result = output.at("edges");
 
-  std::vector<std::pair<int,int>> expected =
+  std::vector<std::pair<int, int>> expected =
   {{1, 2}, {1, 3}, {2, 4},
    {2, 5}, {5, 6}, {3, 7}};
 
   REQUIRE_EQUAL(true, CompareGraphs(result, expected));
-
 }
-
-static void RandomTest(httplib::Client* cli)
-{
+static void RandomTest(httplib::Client* cli) {
   int numOfTests = 10;
-  const vector<pair<int,int>> expected = {
+  const vector<pair<int, int>> expected = {
     {1, 2},
     {1, 3},
     {2, 5},
@@ -120,7 +115,7 @@ static void RandomTest(httplib::Client* cli)
     {4, 7}
   };
 
-  const vector<pair<int,int>> edges = {
+  const vector<pair<int, int>> edges = {
     {1, 5},
     {1, 6},
     {1, 7},
@@ -144,8 +139,7 @@ static void RandomTest(httplib::Client* cli)
   std::uniform_int_distribution<int> randomWeight(10, 30);
 
   for (int i = 0; i < numOfTests; i++) {
-
-    vector<pair<int,pair<int,int>>> g = {
+    vector<pair<int, pair<int, int>>> g = {
       {1, {1, 2}},
       {2, {1, 3}},
       {3, {2, 5}},
@@ -154,10 +148,10 @@ static void RandomTest(httplib::Client* cli)
       {6, {4, 7}}
     };
 
-    for (pair<int,int> e : edges) {
+    for (pair<int, int> e : edges) {
       if (coinFlip(gen) == 1) {
         int w = randomWeight(gen);
-        pair<int,pair<int,int>> p;
+        pair<int, pair<int, int>> p;
         p.first = w;
         p.second = e;
         g.push_back(p);
@@ -174,7 +168,7 @@ static void RandomTest(httplib::Client* cli)
     tmp["vertices"] = std::vector<int> {1, 2, 3, 4, 5, 6, 7};
 
     int j = 0;
-    for (pair<int,pair<int,int>> e : g) {
+    for (pair<int, pair<int, int>> e : g) {
       tmp["edges"][j]["from"] = e.second.first;
       tmp["edges"][j]["to"] = e.second.second;
       tmp["edges"][j]["weight"] = e.first;
@@ -191,7 +185,7 @@ static void RandomTest(httplib::Client* cli)
 
     nlohmann::json output = nlohmann::json::parse(res->body);
 
-    std::vector<std::pair<int,int>> result = output.at("edges");
+    std::vector<std::pair<int, int>> result = output.at("edges");
 
     REQUIRE_EQUAL(true, CompareGraphs(result, expected));
   }
