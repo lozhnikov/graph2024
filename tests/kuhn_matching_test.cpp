@@ -54,7 +54,7 @@ static void SimpleTest(httplib::Client* cli) {
   std::unordered_set<size_t> expected = { 3, 7, 2, 6, 1, 5, 0, 4 };
   std::unordered_set<size_t> resultEdges;
 
-  for (int i = 0; i < result.size(); ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     resultEdges.insert(result[i].first);
     resultEdges.insert(result[i].second);
   }
@@ -130,7 +130,7 @@ static void RandomTest(httplib::Client* cli) {
   std::unordered_set<size_t> expected;
   std::unordered_set<size_t> resultEdges;
 
-  for (int i = 0; i < result.size(); ++i) {
+  for (size_t i = 0; i < result.size(); ++i) {
     resultEdges.insert(result[i].first);
     resultEdges.insert(result[i].second);
   }

@@ -32,6 +32,8 @@ void TestWeightedOrientedGraph();
 
 /* Сюда нужно добавить объявления тестовых функций. */
 
+void TestKruskal(httplib::Client* cli);
+
 /**
 * @brief Набор тестов для функции graph::MyAlgorithmPrims.
 */
