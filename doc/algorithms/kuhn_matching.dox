@@ -1,0 +1,25 @@
+﻿/*!
+@file kuhn_matching.dox
+@author Aleksei Samarokov
+
+@page kuhn_matching Алгоритм Куна нахождения наибольшего паросочетания в двудольном графе
+
+@section kuhn_matching_algo Описание алгоритма Куна
+
+
+Алгоритм реализован в функции graph::KuhnMatching()
+
+*/
+
+
+/*!
+@fn graph::void KuhnMatching(GraphType* graph, std::vector<std::pair<size_t, size_t>>* resEdges)
+
+Функция реализует алгоритм Куна нахождения наибольшего паросочетания в двудольном графе
+@ref kuhn_matching.
+
+Время работы алгоритма
+\f$
+O(NM)
+\f$.
+*/

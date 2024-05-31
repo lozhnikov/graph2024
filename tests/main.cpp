@@ -42,6 +42,10 @@ int main(int argc, char* argv[]) {
 
   TestKruskal(&cli);
 
+  TestMyAlgorithmPrims(&cli);
+
+  TestKuhnMatching(&cli);
+
   /* Конец вставки. */
 
   // Отправляем GET запрос для остановки сервера.
