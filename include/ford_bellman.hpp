@@ -1,5 +1,5 @@
 /**
- * @file include/my_algorithm_prins.hpp
+ * @file include/ford_bellman.hpp
  * @author Yaroslav Egorov
  *
  * Алгоритм Форда-Беллмана нахождения кратчайших путей от заданной вершины до всех остальных вершин
@@ -9,10 +9,11 @@
 #define INCLUDE_FORD_BELLMAN_HPP_
 
 #include <vector>
+#include <map>
+#include <cstdint>
 #include <algorithm>
 #include <iostream>
 #include "weighted_oriented_graph.hpp"
-#define INF 10000000
 
 
 namespace graph {
@@ -48,11 +49,11 @@ graph) {
  */
 template<typename WeightType>
 void FordBellman(const graph::WeightedOrientedGraph<WeightType>& graph,
-std::vector<WeightType>* res) {
+std::map<size_t, WeightType>* res) {
   int m = FordBellmanHelper(graph);
   std::vector<edge<WeightType>> e(m);
-  res->resize(m);
   m = 0;
+
   for (size_t j : graph.Vertices()) {
     for (size_t neighbour : graph.Edges(j)) {
       e[m].begin = j;
@@ -61,24 +62,26 @@ std::vector<WeightType>* res) {
       ++m;
     }
   }
-  std::vector<WeightType> d(graph.NumVertices(), INF);
-  d[0] = 0;
-  std::vector<WeightType> p(graph.NumVertices(), -1);
+  std::map<size_t, WeightType> d;
+  for (size_t j : graph.Vertices()) {
+    d[j] = /*WeightType(SIZE_MAX*)*/100000000;
+  }
+  d[0] = WeightType();
+
   while (true) {
     bool any = false;
     for (int j = 0; j < m; ++j) {
-      if (d[e[j].begin] < INF) {
+      if (d[e[j].begin] < /*WeightType(SIZE_MAX)*/100000000) {
         if (d[e[j].end] > d[e[j].begin] + e[j].weight) {
           d[e[j].end] = d[e[j].begin] + e[j].weight;
-          p[e[j].end] = e[j].begin;
           any = true;
         }
       }
     }
     if (!any)  break;
   }
-  for (int i = 0; i < graph.NumVertices(); i++) {
-    res->at(i) = d[i];
+  for (size_t i : graph.Vertices()) {
+    res->insert(std::make_pair(i, d[i]));
   }
 }
 

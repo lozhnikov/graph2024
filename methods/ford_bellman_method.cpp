@@ -28,7 +28,7 @@ namespace graph {
   int FordBellmanMethodHelper(const nlohmann::json& input,
   nlohmann::json* output) {
     graph::WeightedOrientedGraph<WeightType> graph;
-    std::vector<WeightType> result;
+    std::map<size_t, WeightType> res;
 
     for (auto& vertex : input.at("vertices")) {
       graph.AddVertex(vertex);
@@ -38,11 +38,12 @@ namespace graph {
       graph.AddEdge(edge.at("from"), edge.at("to"), edge.at("weight"));
     }
 
-    FordBellman<WeightType>(graph, &result);
+    FordBellman<WeightType>(graph, &res);
 
-    for (size_t i = 0; i < result.size(); ++i) {
-      (*output)["result"].push_back(result[i]);
+    for (size_t i = 0; i < res.size(); ++i) {
+      (*output)["result"].push_back(std::make_pair(i, res[i]));
     }
+
     return 0;
   }
 }  // namespace graph
