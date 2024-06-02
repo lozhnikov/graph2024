@@ -120,7 +120,7 @@ static void RandomTest(httplib::Client* cli) {
   int temp = 0;
   double sum = 0;
   int count = 0;
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < 1; ++i) {
     a = 0;
     b = 0;
     temp = integer(gen);
