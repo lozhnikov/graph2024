@@ -71,12 +71,14 @@ static void SimpleTest(httplib::Client* cli) {
 
   REQUIRE_EQUAL(expected, result);
 }
+
 static void RandomTest(httplib::Client* cli) {
   nlohmann::json tmp;
-  std::random_device rand;
-  std::mt19937 g(rand());
-  std::uniform_real_distribution<double> wght(2.0, 10.0);
-  std::uniform_int_distribution<int> intgr(3, 15);
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<double> weight(7.0, 10.0);
+  std::uniform_int_distribution<int> num(5, 14);
+  std::uniform_int_distribution<int> integer(0, 14);
 
   std::set<int> v;
   tmp["graph_type"] = "WeightedOrientedGraph";
@@ -84,23 +86,25 @@ static void RandomTest(httplib::Client* cli) {
   double arr[15][15];
   for(int i = 0; i < 15; i++) {
     for(int j = 0; j < 15; j++) {
-      arr[i][j] = -100;
+      arr[i][j] = 0.0;
     }
   }
-
-  for (int i = 0; i < intgr(g); ++i) {
-    tmp["edges"][i]["from"] = intgr(g);
-    tmp["edges"][i]["to"] = intgr(g);
-    tmp["edges"][i]["weight"] = wght(g);
-    std::cout << "(" << tmp["edges"][i]["from"] << ", " << tmp["edges"][i]["to"] << ") = " << tmp["edges"][i]["weight"] << std::endl;
+  int edges = num(gen);
+  for (int i = 0; i < edges; ++i) {
+    tmp["edges"][i]["from"] = integer(gen);
+    tmp["edges"][i]["to"] = integer(gen);
+    tmp["edges"][i]["weight"] = weight(gen);
+    std::cout << "(" << tmp["edges"][i]["from"] << ", " <<
+	    tmp["edges"][i]["to"] << ") = " << tmp["edges"][i]["weight"] << std::endl;
     v.insert(int(tmp["edges"][i]["from"]));
     v.insert(int(tmp["edges"][i]["to"]));
     arr[int(tmp["edges"][i]["from"])][int(tmp["edges"][i]["to"])] = double(tmp["edges"][i]["weight"]);
   }
   tmp["vertices"] = v;
+
 /*  tmp["graph_type"] = "WeightedOrientedGraph";
   tmp["weight_type"] = "double";
-  tmp["vertices"] = std::set<int> {0, 1, 2, 3, 4};
+  tmp["vertices"] = std::vector<int> {0, 1, 2, 3, 4};
 
   tmp["edges"][0]["from"] = 0;
   tmp["edges"][0]["to"] = 1;
@@ -110,7 +114,7 @@ static void RandomTest(httplib::Client* cli) {
   tmp["edges"][1]["to"] = 2;
   tmp["edges"][1]["weight"] = 2.0;
 
-  double w = wght(g);
+  double w = weight(gen);
   tmp["edges"][2]["from"] = 1;
   tmp["edges"][2]["to"] = 3;
   tmp["edges"][2]["weight"] = w;
@@ -142,19 +146,27 @@ static void RandomTest(httplib::Client* cli) {
     std::cout << std::endl;
   }
 
-  int from = 0;
-  int to = 0;
+  int a = 0;
+  int b = 0;
+  int temp = 0;
   double sum = 0;
+  int count = 0;
   for (int i = 0; i < 100; ++i) {
-    from = 0;
-    to = intgr(g);
+    a = 0;
+    b = 0;
+    temp = integer(gen);
+
     sum = 0;
-    while(arr[from][to] > -1) {
-      sum += arr[from][to];
-      from = to;
-      to = intgr(g);
+    count = 0;
+    while(arr[a][temp] > 1 && count < 10) {
+      sum += arr[a][temp];
+      std::cout << "sum (0, " << temp << ") = " << sum << std::endl;
+      b = temp;
+      a = temp;
+      temp = integer(gen);
+      count++;
     }
-    if(sum < result[to]) {
+    if(sum < result[b]) {
       REQUIRE_EQUAL(1, -1);
     }
   }

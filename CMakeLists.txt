@@ -112,14 +112,24 @@ add_executable(
   include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
+
+  include/kruskal.hpp
+  include/oriented_graph.hpp
+  include/weighted_graph.hpp
+  include/weighted_oriented_graph.hpp
+  methods/kruskal_method.cpp
+
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  include/kuhn_matching.hpp
+
   methods/ford_bellman_method.cpp
   methods/main.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
+  methods/kuhn_matching_method.cpp
 )
 
 ####################################################################
@@ -142,13 +152,22 @@ add_executable(
   include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
+
+  include/kruskal.hpp
+
   include/my_algorithm_prims.hpp
+
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+<<<<<<< HEAD
   tests/ford_bellman_test.cpp
+=======
+  include/kuhn_matching.hpp
+>>>>>>> upstream/main
   tests/graph_test.cpp
   tests/io.hpp
+  tests/kruskal_test.cpp
   tests/main.cpp
   tests/my_algorithm_prims_test.cpp
   tests/oriented_graph_test.cpp
@@ -157,6 +176,7 @@ add_executable(
   tests/test_core.hpp
   tests/weighted_graph_test.cpp
   tests/weighted_oriented_graph_test.cpp
+  tests/kuhn_matching_test.cpp
 )
 
 #####################################################################
