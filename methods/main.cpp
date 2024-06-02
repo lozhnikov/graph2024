@@ -72,8 +72,8 @@ int main(int argc, char* argv[]) {
   svr.Post("/FordBellman", [&](const httplib::Request& req,
     httplib::Response& res) {
       nlohmann::json input = nlohmann::json::parse(req.body);
-      nlohmann::json output; 
-    
+      nlohmann::json output;
+
       if (graph::FordBellmanMethod(input, &output) < 0)
         res.status = 400;
 

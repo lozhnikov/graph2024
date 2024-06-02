@@ -11,6 +11,7 @@
 #include <vector>
 #include <map>
 #include <cstdint>
+#include <utility>
 #include <algorithm>
 #include <iostream>
 #include "weighted_oriented_graph.hpp"
@@ -64,14 +65,14 @@ std::map<size_t, WeightType>* res) {
   }
   std::map<size_t, WeightType> d;
   for (size_t j : graph.Vertices()) {
-    d[j] = /*WeightType(SIZE_MAX*)*/100000000;
+    d[j] = 100000000;
   }
   d[0] = WeightType();
 
   while (true) {
     bool any = false;
     for (int j = 0; j < m; ++j) {
-      if (d[e[j].begin] < /*WeightType(SIZE_MAX)*/100000000) {
+      if (d[e[j].begin] < 100000000) {
         if (d[e[j].end] > d[e[j].begin] + e[j].weight) {
           d[e[j].end] = d[e[j].begin] + e[j].weight;
           any = true;
