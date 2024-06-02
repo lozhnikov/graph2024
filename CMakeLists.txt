@@ -160,11 +160,8 @@ add_executable(
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
-<<<<<<< HEAD
-  tests/ford_bellman_test.cpp
-=======
   include/kuhn_matching.hpp
->>>>>>> upstream/main
+  tests/ford_bellman_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/kruskal_test.cpp
