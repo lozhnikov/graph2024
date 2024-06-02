@@ -98,7 +98,7 @@ static void RandomTest(httplib::Client* cli) {
     v.insert(static_cast<int>(tmp["edges"][i]["from"]));
     v.insert(static_cast<int>(tmp["edges"][i]["to"]));
     arr[static_cast<int>(tmp["edges"][i]["from"])]
-       [static_cast<int>(tmp["edges"][i]["to"])] = 
+       [static_cast<int>(tmp["edges"][i]["to"])] =
        static_cast<double>(tmp["edges"][i]["weight"]);
   }
   tmp["vertices"] = v;
