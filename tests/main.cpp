@@ -45,6 +45,8 @@ int main(int argc, char* argv[]) {
   TestMyAlgorithmPrims(&cli);
 
   TestKuhnMatching(&cli);
+  
+  TestMyAlgorithmFindCycle(&cli);
 
   /* Конец вставки. */
 

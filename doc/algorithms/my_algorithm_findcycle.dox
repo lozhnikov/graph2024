@@ -1,0 +1,28 @@
+/*!
+
+@file my_algorithm_findcycle.dox
+@author Oleg Malashevich
+
+@page my_algorithm_findcycle Проверка графа на ацикличность и нахождение цикла
+
+@section my_algorithm_findcycle_algo Описание алгоритма поиска цикла в графе
+
+
+Алгоритм реализован в функции graph::MyAlgorithmFindCycle()
+
+*/
+
+
+/*!
+@fn graph::MyAlgorithmFindCycle(const graph::OrientedGraph& graph, std::list<size_t>* cycle, std::map<size_t, int> color)
+
+Функция реализует алгоритм поиска цикла в ориентированном графе
+@ref my_algorithm_findcycle.
+
+Время работы алгоритма
+\f$
+O(M)
+\f$.
+*/
+
+

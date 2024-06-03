@@ -117,7 +117,8 @@ add_executable(
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   methods/kruskal_method.cpp
-
+  
+  include/my_algorithm_findcycle.hpp  	
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
@@ -127,6 +128,7 @@ add_executable(
   methods/main.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
+  methods/my_algorithm_findcycle_method.cpp
   methods/kuhn_matching_method.cpp
 )
 
@@ -151,7 +153,7 @@ add_executable(
   include/iterators.hpp
 
   include/kruskal.hpp
-
+  include/my_algorithm_findcycle.hpp
   include/my_algorithm_prims.hpp
 
   include/oriented_graph.hpp
@@ -162,6 +164,7 @@ add_executable(
   tests/io.hpp
   tests/kruskal_test.cpp
   tests/main.cpp
+  tests/my_algorithm_findcycle_test.cpp
   tests/my_algorithm_prims_test.cpp
   tests/oriented_graph_test.cpp
   tests/test.hpp

@@ -20,6 +20,7 @@ int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
 
 int KuhnMatchingMethod(const nlohmann::json& input, nlohmann::json* output);
 
+int MyAlgorithmFindCycleMethod(const nlohmann::json& input, nlohmann::json* output);
 
 /* Конец вставки. */
 
