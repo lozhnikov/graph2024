@@ -80,8 +80,6 @@ int main(int argc, char* argv[]) {
       res.set_content(output.dump(), "application/json");
     });
 
-
->>>>>>> upstream/main
   /* Конец вставки. */
 
   // Эта функция запускает сервер на указанном порту. Программа не завершится

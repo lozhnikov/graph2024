@@ -18,9 +18,9 @@
 const int MAXN = 1000;
 
 template<class Graph>
-int lca(const Graph &graph, int n, std::vector<int>& g, int* match, int* p,
-  int* base, int* q, bool* used, bool* blossom, int a, int b) {
-  bool visited[MAXN] = {0};
+int lca(const Graph &graph, int n, std::vector<std::vector<int>>& g, int* match,
+  int* p, int* base, int* q, bool* used, bool* blossom, int a, int b) {
+  std::vector<bool> visited(MAXN, false);
   // поднимаемся от вершины a до корня, помечая все чётные вершины
   for (;;) {
     a = base[a];
@@ -37,7 +37,7 @@ int lca(const Graph &graph, int n, std::vector<int>& g, int* match, int* p,
 }
 
 template<class Graph>
-void mark_path(const Graph &graph, int n, std::vector<int>& g,
+void mark_path(const Graph &graph, int n, std::vector<std::vector<int>>& g,
   int* match, int* p, int* base, int* q, bool* used,
   bool* blossom, int v, int b, int children) {
   while (base[v] != b) {
@@ -49,7 +49,7 @@ void mark_path(const Graph &graph, int n, std::vector<int>& g,
 }
 
 template<class Graph>
-int find_path(const Graph &graph, int n, std::vector<int>& g,
+int find_path(const Graph &graph, int n, std::vector<std::vector<int>>& g,
   int* match, int* p, int* base, int* q, bool* used, bool* blossom,
   int root) {
   memset(used, 0, sizeof used);
@@ -68,8 +68,10 @@ int find_path(const Graph &graph, int n, std::vector<int>& g,
       if (to == root || (match[to] != -1 && p[match[to]] != -1)) {
         int curbase = lca(graph, n, g, match, p, base, q, used, blossom, v, to);
         memset(blossom, 0, sizeof blossom);
-        mark_path(graph, n, g, match, p, base, q, used, blossom, v, curbase, to);
-        mark_path(graph, n, g, match, p, base, q, used, blossom, to, curbase, v);
+        mark_path(graph, n, g, match, p, base, q, used, blossom, v, curbase,
+          to);
+        mark_path(graph, n, g, match, p, base, q, used, blossom, to, curbase,
+          v);
         for (int i = 0; i < n; ++i)
           if (blossom[base[i]]) {
             base[i] = curbase;
@@ -105,7 +107,7 @@ int MatchingEdmonds(const Graph &graph) {
 
   int count = 0;
   int n = graph.NumVertices();
-  std::vector<int> g[n];
+  std::vector<std::vector<int>> g(n);
   int* match = new int[n];
   int* p = new int[n];
   int* base = new int[n];
@@ -138,7 +140,7 @@ int MatchingEdmonds(const Graph &graph) {
   delete[] used;
   delete[] blossom;
 
-  return count;
+  return count / 2;
 }
 
-#endif // INCLUDE_MATCHING_EDMONDS_HPP_
+#endif  // INCLUDE_MATCHING_EDMONDS_HPP_
