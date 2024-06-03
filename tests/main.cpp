@@ -40,10 +40,13 @@ int main(int argc, char* argv[]) {
 
   /* Сюда нужно вставить вызов набора тестов для алгоритма. */
 
+  TestKruskal(&cli);
+
   TestMyAlgorithmPrims(&cli);
 
   TestFindBridges(&cli);
 
+  TestKuhnMatching(&cli);
 
   /* Конец вставки. */
 
