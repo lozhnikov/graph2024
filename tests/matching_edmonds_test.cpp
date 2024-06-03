@@ -118,7 +118,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
     std::stringstream ss;
     ss << threshold-1 << "," << threshold;
     std::string bridge = ss.str();
-    REQUIRE(output->body != std::string::npos);
+    REQUIRE(output->body.find(bridge) != std::string::npos);
   }
   std::cout << "OK!\n";
 }

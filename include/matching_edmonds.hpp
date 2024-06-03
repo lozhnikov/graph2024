@@ -13,12 +13,12 @@
 #include <unordered_map>
 #include <vector>
 #include <cstring>
-#include "graph.hpp"
+#include <graph.hpp>
 
 const int MAXN = 1000;
 
 template<class Graph>
-int lca(const Graph &graph, int n, std::vector<std::vector<int>>& g, int* match,
+int lca(const Graph &graph, int n, const std::vector<std::vector<int>>& g, int* match,
   int* p, int* base, int* q, bool* used, bool* blossom, int a, int b) {
   std::vector<bool> visited(MAXN, false);
   // поднимаемся от вершины a до корня, помечая все чётные вершины
@@ -37,7 +37,7 @@ int lca(const Graph &graph, int n, std::vector<std::vector<int>>& g, int* match,
 }
 
 template<class Graph>
-void mark_path(const Graph &graph, int n, std::vector<std::vector<int>>& g,
+void mark_path(const Graph &graph, int n, const std::vector<std::vector<int>>& g,
   int* match, int* p, int* base, int* q, bool* used,
   bool* blossom, int v, int b, int children) {
   while (base[v] != b) {
@@ -49,7 +49,7 @@ void mark_path(const Graph &graph, int n, std::vector<std::vector<int>>& g,
 }
 
 template<class Graph>
-int find_path(const Graph &graph, int n, std::vector<std::vector<int>>& g,
+int find_path(const Graph &graph, int n, const std::vector<std::vector<int>>& g,
   int* match, int* p, int* base, int* q, bool* used, bool* blossom,
   int root) {
   memset(used, 0, sizeof used);
