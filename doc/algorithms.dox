@@ -6,6 +6,14 @@
 @page algorithms Алгоритмы
 
 Список реализованных алгоритмов:
+
+kruskal.dox
+
 \subpage my_algorithm_prims
+<<<<<<< HEAD
 \subpage matching_edmonds
+=======
+\subpage kuhn_matching
+
+>>>>>>> upstream/main
 */

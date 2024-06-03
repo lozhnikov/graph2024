@@ -14,9 +14,17 @@ namespace graph {
 
 /* Сюда нужно вставить объявление серверной части алгоритма. */
 
-int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
-void MatchingEdmondsMethod(const nlohmann::json &input,
+int KruskalMethod(const nlohmann::json& input, nlohmann::json* output);
+
+int MatchingEdmondsMethod(const nlohmann::json &input,
   nlohmann::json *output);
+
+int MyAlgorithmPrimsMethod(const nlohmann::json& input, nlohmann::json* output);
+
+int KuhnMatchingMethod(const nlohmann::json& input, nlohmann::json* output);
+
+
+>>>>>>> upstream/main
 /* Конец вставки. */
 
 }  // namespace graph

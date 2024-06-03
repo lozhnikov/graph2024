@@ -32,12 +32,19 @@ void TestWeightedOrientedGraph();
 
 /* Сюда нужно добавить объявления тестовых функций. */
 
+void TestKruskal(httplib::Client* cli);
+
+void TestMatchingEdmonds(httplib::Client *cli);
+
 /**
 * @brief Набор тестов для функции graph::MyAlgorithmPrims.
 */
 void TestMyAlgorithmPrims(httplib::Client* cli);
-void TestMatchingEdmonds(httplib::Client *cli);
 
-/* Конец вставки. */
+/**
+* @brief Набор тестов для функции graph::KuhnMatching.
+*/
+void TestKuhnMatching(httplib::Client* cli);
+
 
 #endif  // TESTS_TEST_HPP_
