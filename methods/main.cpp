@@ -46,15 +46,12 @@ int main(int argc, char* argv[]) {
         res.set_content(output.dump(), "application/json");
   });
 
-  svr.Post("/MatchingEdmonds", [&](const httplib::Request& req,
-                                    httplib::Response& res) {
-    nlohmann::json input = nlohmann::json::parse(req.body);
-    nlohmann::json output;
-
-    if (graph::MatchingEdmondsMethod(input, &output) < 0)
-      res.status = 400;
-
-    res.set_content(output.dump(), "application/json");
+  svr.Post("/MatchingEdmonds",
+           [&](const httplib::Request &req, httplib::Response &res) {
+    const nlohmann::json js = nlohmann::json::parse(req.body);
+    nlohmann::json *result = new nlohmann::json();
+    graph::MatchingEdmondsMethod(js, result);
+    res.set_content((*result).dump(), "application/json");
   });
 
   svr.Post("/MyAlgorithmPrims", [&](const httplib::Request& req,
@@ -75,6 +72,17 @@ int main(int argc, char* argv[]) {
       nlohmann::json output;
 
       if (graph::KuhnMatchingMethod(input, &output) < 0)
+        res.status = 400;
+
+      res.set_content(output.dump(), "application/json");
+    });
+
+  svr.Post("/FordBellman", [&](const httplib::Request& req,
+    httplib::Response& res) {
+      nlohmann::json input = nlohmann::json::parse(req.body);
+      nlohmann::json output;
+
+      if (graph::FordBellmanMethod(input, &output) < 0)
         res.status = 400;
 
       res.set_content(output.dump(), "application/json");

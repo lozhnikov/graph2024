@@ -14,6 +14,7 @@ kruskal.dox
 \subpage matching_edmonds
 =======
 \subpage kuhn_matching
+\subpage ford_bellman
 
 >>>>>>> upstream/main
 */

@@ -45,6 +45,7 @@ int main(int argc, char* argv[]) {
   TestMatchingEdmonds(&cli);
 
   TestMyAlgorithmPrims(&cli);
+  TestFordBellman(&cli);
 
   TestKuhnMatching(&cli);
 
