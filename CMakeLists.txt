@@ -109,11 +109,13 @@ include_directories(${GRAPH_INCLUDE_DIRS})
 
 add_executable(
   graph_server
+  include/strongly_connected_component.hpp
   include/graph.hpp
   include/iterators.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  methods/strongly_connected_component_method.cpp
   methods/main.cpp
   methods/methods.hpp
 )
@@ -135,11 +137,13 @@ target_link_libraries(graph_server ${GRAPH_LIBS})
 
 add_executable(
   graph_test
+  include/strongly_connected_component.hpp
   include/graph.hpp
   include/iterators.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
+  tests/strongly_connected_component_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/main.cpp

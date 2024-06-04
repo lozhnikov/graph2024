@@ -1,10 +1,10 @@
 /*!
 
 @file algorithms.dox
-@author Mikhail Lozhnikov
+@author Igor Bychkov
 
 @page algorithms Алгоритмы
 
 Список реализованных алгоритмов:
-
+- \subpage strongly_connected_component
 */
