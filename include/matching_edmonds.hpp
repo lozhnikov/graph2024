@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <vector>
+#include <utility>
 #include <cstring>
 #include <graph.hpp>
 
@@ -95,7 +96,7 @@ int find_path(const Graph &graph, int n, const std::vector<std::vector<int>>& g,
 }
 
 template<class Graph>
-int MatchingEdmonds(const Graph &graph) {
+std::vector<std::pair<int, int>> MatchingEdmonds(const Graph &graph) {
   /**
    * @brief Алгоритм нахождения наибольшего паросочетания
    * в произвольных графах.
