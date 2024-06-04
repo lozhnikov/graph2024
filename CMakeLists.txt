@@ -109,6 +109,7 @@ include_directories(${GRAPH_INCLUDE_DIRS})
 
 add_executable(
   graph_server
+  include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
 
@@ -124,6 +125,7 @@ add_executable(
   include/weighted_oriented_graph.hpp
   include/kuhn_matching.hpp
 
+  methods/ford_bellman_method.cpp
   methods/main.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
@@ -147,6 +149,7 @@ target_link_libraries(graph_server ${GRAPH_LIBS})
 
 add_executable(
   graph_test
+  include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
 
@@ -158,6 +161,7 @@ add_executable(
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   include/kuhn_matching.hpp
+  tests/ford_bellman_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/kruskal_test.cpp

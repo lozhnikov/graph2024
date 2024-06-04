@@ -11,5 +11,6 @@ kruskal.dox
 
 \subpage my_algorithm_prims
 \subpage kuhn_matching
+\subpage ford_bellman
 
 */

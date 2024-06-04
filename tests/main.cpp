@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
   TestKruskal(&cli);
 
   TestMyAlgorithmPrims(&cli);
+  TestFordBellman(&cli);
 
   TestKuhnMatching(&cli);
 
