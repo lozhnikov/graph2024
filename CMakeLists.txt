@@ -111,6 +111,7 @@ include_directories(${GRAPH_INCLUDE_DIRS})
 add_executable(
   graph_server
   include/bridge_finder.hpp
+  include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
   include/kruskal.hpp
@@ -124,6 +125,7 @@ add_executable(
   include/kuhn_matching.hpp
   methods/kruskal_method.cpp
   methods/bridge_finder_method.cpp
+  methods/ford_bellman_method.cpp
   methods/main.cpp
   methods/methods.hpp
   methods/my_algorithm_prims.cpp
@@ -148,6 +150,7 @@ target_link_libraries(graph_server ${GRAPH_LIBS})
 add_executable(
   graph_test
   include/bridge_finder.hpp
+  include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
   include/kruskal.hpp
@@ -157,6 +160,7 @@ add_executable(
   include/weighted_oriented_graph.hpp
   include/kuhn_matching.hpp
   tests/bridge_finder_test.cpp
+  tests/ford_bellman_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
   tests/kruskal_test.cpp
