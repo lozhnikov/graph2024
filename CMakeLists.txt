@@ -3,6 +3,7 @@ project(graph CXX)
 cmake_minimum_required(VERSION 3.2)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 
@@ -109,22 +110,21 @@ include_directories(${GRAPH_INCLUDE_DIRS})
 
 add_executable(
   graph_server
+  include/bridge_finder.hpp
   include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
-
   include/kruskal.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
-  methods/kruskal_method.cpp
-
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   include/kuhn_matching.hpp
-
+  methods/kruskal_method.cpp
+  methods/bridge_finder_method.cpp
   methods/ford_bellman_method.cpp
   methods/main.cpp
   methods/methods.hpp
@@ -149,18 +149,17 @@ target_link_libraries(graph_server ${GRAPH_LIBS})
 
 add_executable(
   graph_test
+  include/bridge_finder.hpp
   include/ford_bellman.hpp
   include/graph.hpp
   include/iterators.hpp
-
   include/kruskal.hpp
-
   include/my_algorithm_prims.hpp
-
   include/oriented_graph.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   include/kuhn_matching.hpp
+  tests/bridge_finder_test.cpp
   tests/ford_bellman_test.cpp
   tests/graph_test.cpp
   tests/io.hpp

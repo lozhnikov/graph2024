@@ -35,14 +35,26 @@ void TestWeightedOrientedGraph();
 void TestKruskal(httplib::Client* cli);
 
 /**
+
 * @brief Набор тестов для функции graph::MyAlgorithmPrims.
 */
 void TestMyAlgorithmPrims(httplib::Client* cli);
 
+/**
+ * @brief Набор тестов для метода draph::BridgeFinder
+ */
+void TestFindBridges(httplib::Client* cli);
+
+/* Конец вставки. */
+
+/**
+
 /* 
+
 * @brief Набор тестов для функции graph::KuhnMatching.
 */
 void TestKuhnMatching(httplib::Client* cli);
+
 
 /**
 * @brief Набор тестов для функции graph::FordBellman.

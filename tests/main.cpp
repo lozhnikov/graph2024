@@ -45,6 +45,8 @@ int main(int argc, char* argv[]) {
   TestMyAlgorithmPrims(&cli);
   TestFordBellman(&cli);
 
+  TestFindBridges(&cli);
+
   TestKuhnMatching(&cli);
 
   /* Конец вставки. */

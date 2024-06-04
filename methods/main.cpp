@@ -6,11 +6,11 @@
  */
 
 #include <httplib.h>
+#include <string>
+#include <unordered_map>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "methods.hpp"
-
-
 
 int main(int argc, char* argv[]) {
   // Порт по-умолчанию.
@@ -29,11 +29,14 @@ int main(int argc, char* argv[]) {
 
   // Обработчик для GET запроса по адресу /stop. Этот обработчик
   // останавливает сервер.
-  svr.Get("/stop", [&](const httplib::Request&, httplib::Response&) {
+  svr.Get("/stop", [&](const httplib::Request&, httplib::Response& res) {
+    std::cout << u8"Сервер выключается..." << std::endl;
+    res.set_content(u8"Server выклбчился успешно!", "text/plain");
     svr.stop();
   });
 
-  /* Сюда нужно вставить обработчик post запроса для алгоритма. */
+  // Сюда нужно вставить обработчик post запроса для алгоритма.
+
 
   svr.Post("/Kruskal", [&](const httplib::Request& req,
                            httplib::Response& res) {
@@ -81,6 +84,14 @@ int main(int argc, char* argv[]) {
     });
 
   /* Конец вставки. */
+
+  // парсинг графа
+
+  svr.Post("/find_bridges",
+          [](const httplib::Request& req, httplib::Response& res) {
+            graph::ProcessFindBrigdes(&req, &res);
+          });
+  // Конец вставки.
 
   // Эта функция запускает сервер на указанном порту. Программа не завершится
   // до тех пор, пока сервер не будет остановлен.
