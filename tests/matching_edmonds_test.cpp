@@ -70,8 +70,8 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
     std::cout << name << "... ";
     auto output = cli->Post("/MatchingEdmonds",
                             value.first.dump(), "application/json");
-    REQUIRE(output->body == value.second);
-    REQUIRE_EQUAL(output->body, value.second);
+    REQUIRE(output->body == value.second.dump());
+    REQUIRE_EQUAL(output->body, value.second.dump());
     std::cout << "OK!\n";
   }
 
