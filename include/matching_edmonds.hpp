@@ -96,7 +96,7 @@ int find_path(const Graph &graph, int n, const std::vector<std::vector<int>>& g,
 }
 
 template<class Graph>
-std::vector<std::pair<int, int>> MatchingEdmonds(const Graph &graph) {
+int MatchingEdmonds(const Graph &graph) {
   /**
    * @brief Алгоритм нахождения наибольшего паросочетания
    * в произвольных графах.
@@ -130,10 +130,9 @@ std::vector<std::pair<int, int>> MatchingEdmonds(const Graph &graph) {
       }
     }
 
-  std::vector<std::pair<int, int>> MatchingPairs;
   for (int i = 0; i < n; ++i) {
-    if (match[i] != -1 && i < match[i]) {
-      MatchingPairs.push_back({i, match[i]});
+    if (match[i] != -1) {
+      count++;
     }
   }
 
@@ -144,7 +143,7 @@ std::vector<std::pair<int, int>> MatchingEdmonds(const Graph &graph) {
   delete[] used;
   delete[] blossom;
 
-  return MatchingPairs;
+  return count/2;
 }
 
 #endif  // INCLUDE_MATCHING_EDMONDS_HPP_

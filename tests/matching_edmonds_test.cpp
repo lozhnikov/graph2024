@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <random>
 #include <iostream>
+#include <utility>
 #include <vector>
 #include <graph.hpp>
 #include <nlohmann/json.hpp>
@@ -12,12 +13,12 @@ using graph::Graph;
 
 void TestMatchingEdmondsCore(httplib::Client *cli) {
   /**
-   * @brief Тесты алгоритма matching_edmonds.
+   * @brief РўРµСЃС‚С‹ Р°Р»РіРѕСЂРёС‚РјР° matching_edmonds.
    *
-   * @param cli Клиент, отправляющий запросы.
+   * @param cli РљР»РёРµРЅС‚, РѕС‚РїСЂР°РІР»СЏСЋС‰РёР№ Р·Р°РїСЂРѕСЃС‹.
    *
-   * Функция тестирует алгоритм, Отправляя JSON-ы с клиента, и
-   * проверяя выходные JSON-ы на корректность.
+   * Р¤СѓРЅРєС†РёСЏ С‚РµСЃС‚РёСЂСѓРµС‚ Р°Р»РіРѕСЂРёС‚Рј, РћС‚РїСЂР°РІР»СЏСЏ JSON-С‹ СЃ РєР»РёРµРЅС‚Р°, Рё
+   * РїСЂРѕРІРµСЂСЏСЏ РІС‹С…РѕРґРЅС‹Рµ JSON-С‹ РЅР° РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ.
   */
   std::map<std::string, std::pair<nlohmann::json, nlohmann::json>> cases;
   std::vector<std::pair<size_t, size_t>> empty_list;
@@ -27,7 +28,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", empty_list}
     },
     {
-      {"matchings", empty_list}
+      {"greatest matching", 0}
     }
   };
   cases["One line"] = {
@@ -36,7 +37,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {2, 3}, {3, 10}}}
     },
     {
-      {"matchings", {{1, 2}, {3, 10}}}
+      {"greatest matching", 2}
     }
   };
   cases["No edges"] = {
@@ -45,7 +46,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", empty_list}
     },
     {
-      {"matchings", empty_list}
+      {"greatest matching", 0}
     }
   };
   cases["All connected"] = {
@@ -54,7 +55,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {2, 3}, {3, 1}}}
     },
     {
-      {"matchings", {{1, 2}, {2, 3}, {3, 1}}}
+      {"greatest matching", 1}
     }
   };
   cases["Multiple Connectivity components"] = {
@@ -63,7 +64,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {3, 4}}}
     },
     {
-      {"matchings", {{1, 2}, {3, 4}}}
+      {"greatest matching", 1}
     }
   };
   for (const auto &[name, value] : cases) {
