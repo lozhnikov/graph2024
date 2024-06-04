@@ -129,9 +129,10 @@ int MatchingEdmonds(const Graph &graph) {
       }
     }
 
+  std::vector<std::pair<int, int>> MatchingPairs;
   for (int i = 0; i < n; ++i) {
-    if (match[i] != -1) {
-      count++;
+    if (match[i] != -1 && i < match[i]) {
+      MatchingPairs.push_back({i, match[i]});
     }
   }
 
@@ -142,7 +143,7 @@ int MatchingEdmonds(const Graph &graph) {
   delete[] used;
   delete[] blossom;
 
-  return count / 2;
+  return MatchingPairs;
 }
 
 #endif  // INCLUDE_MATCHING_EDMONDS_HPP_

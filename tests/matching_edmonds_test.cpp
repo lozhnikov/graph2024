@@ -27,7 +27,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", empty_list}
     },
     {
-      0
+      {"matchings", empty_list}
     }
   };
   cases["One line"] = {
@@ -36,7 +36,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {2, 3}, {3, 10}}}
     },
     {
-      2
+      {"matchings", {{1, 2}, {3, 10}}}
     }
   };
   cases["No edges"] = {
@@ -45,7 +45,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", empty_list}
     },
     {
-      0
+      {"matchings", empty_list}
     }
   };
   cases["All connected"] = {
@@ -54,7 +54,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {2, 3}, {3, 1}}}
     },
     {
-      1
+      {"matchings", {{1, 2}, {2, 3}, {3, 1}}}
     }
   };
   cases["Multiple Connectivity components"] = {
@@ -63,7 +63,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {3, 4}}}
     },
     {
-      1
+      {"matchings", {{1, 2}, {3, 4}}}
     }
   };
   for (const auto &[name, value] : cases) {
