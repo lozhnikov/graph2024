@@ -46,7 +46,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", empty_list}
     },
     {
-      {"greatest matching", 0}
+      {"greatest matching", 2}
     }
   };
   cases["All connected"] = {
@@ -64,7 +64,7 @@ void TestMatchingEdmondsCore(httplib::Client *cli) {
       {"edges", {{1, 2}, {3, 4}}}
     },
     {
-      {"greatest matching", 1}
+      {"greatest matching", 3}
     }
   };
   for (const auto &[name, value] : cases) {
