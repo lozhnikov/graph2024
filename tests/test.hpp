@@ -34,14 +34,14 @@ void TestWeightedOrientedGraph();
 
 void TestKruskal(httplib::Client* cli);
 
-void TestMatchingEdmonds(httplib::Client *cli);
+void TestMatchingEdmonds(httplib::Client* cli);
 
 /**
 * @brief Набор тестов для функции graph::MyAlgorithmPrims.
 */
 void TestMyAlgorithmPrims(httplib::Client* cli);
 
-/* 
+/*
 * @brief Набор тестов для функции graph::KuhnMatching.
 */
 void TestKuhnMatching(httplib::Client* cli);

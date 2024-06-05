@@ -23,14 +23,12 @@ int lca(const Graph &graph, int n, const std::vector<std::vector<int>>& g,
   int* match,
   int* p, int* base, int* q, bool* used, bool* blossom, int a, int b) {
   std::vector<bool> visited(MAXN, false);
-  // поднимаемся от вершины a до корня, помечая все чётные вершины
   for (;;) {
     a = base[a];
     visited[a] = true;
-    if (match[a] == -1)  break;  // дошли до корня
+    if (match[a] == -1)  break;
     a = p[match[a]];
   }
-  // поднимаемся от вершины b, пока не найдём помеченную вершину
   for (;;) {
     b = base[b];
     if (visited[b])  return b;
@@ -143,7 +141,7 @@ int MatchingEdmonds(const Graph &graph) {
   delete[] used;
   delete[] blossom;
 
-  return count/2;
+  return count;
 }
 
 #endif  // INCLUDE_MATCHING_EDMONDS_HPP_
