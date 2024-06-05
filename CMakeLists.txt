@@ -119,6 +119,12 @@ add_executable(
   include/weighted_oriented_graph.hpp
   methods/kruskal_method.cpp
 
+  include/matching_edmonds.hpp
+  include/oriented_graph.hpp
+  include/weighted_graph.hpp
+  include/weighted_oriented_graph.hpp
+  methods/matching_edmonds_method.cpp
+
   include/my_algorithm_prims.hpp
   include/oriented_graph.hpp
   include/weighted_graph.hpp
@@ -155,6 +161,8 @@ add_executable(
 
   include/kruskal.hpp
 
+  include/matching_edmonds.hpp
+
   include/my_algorithm_prims.hpp
 
   include/oriented_graph.hpp
@@ -166,6 +174,7 @@ add_executable(
   tests/io.hpp
   tests/kruskal_test.cpp
   tests/main.cpp
+  tests/matching_edmonds_test.cpp
   tests/my_algorithm_prims_test.cpp
   tests/oriented_graph_test.cpp
   tests/test.hpp
@@ -183,4 +192,3 @@ add_executable(
 
 
 target_link_libraries(graph_test ${GRAPH_LIBS})
-

@@ -10,7 +10,11 @@
 kruskal.dox
 
 \subpage my_algorithm_prims
+<<<<<<< HEAD
+\subpage matching_edmonds
+=======
 \subpage kuhn_matching
 \subpage ford_bellman
 
+>>>>>>> upstream/main
 */
