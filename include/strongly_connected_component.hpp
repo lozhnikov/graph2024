@@ -61,7 +61,7 @@ void StronglyConnectedComponent(const graph::OrientedGraph* g, std::map<size_t,s
       DeepSearch1(value, g, &used, &order);
     }
   }
-  for (auto value : g->Vertices()) {
+  for (size_t value = 0; value < g->NumVertices(); ++value) {
     size_t v = order.rbegin()[value];
     if (!(used[v])){  
       DeepSearch2(v, gr, &used, &component);
