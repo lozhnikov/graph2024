@@ -7,7 +7,6 @@
 namespace graph {
 int StronglyConnectedComponentMethod(const nlohmann::json& input, nlohmann::json* output) {
   std::string GraphType = input.at("graph_type");
-  std::map<size_t,std::vector<size_t>> result;
   if(GraphType != "type_oriented"){ return -1; }
   
   
