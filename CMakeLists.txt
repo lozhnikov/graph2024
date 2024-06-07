@@ -117,7 +117,6 @@ add_executable(
   include/weighted_oriented_graph.hpp
   methods/strongly_connected_component_method.cpp
   methods/main.cpp
-  methods/SearchStrongConnectComp.cpp
   methods/methods.hpp
 )
 
@@ -142,13 +141,11 @@ add_executable(
   include/graph.hpp
   include/iterators.hpp
   include/oriented_graph.hpp
-  include/SearchStrongConnectComp.hpp
   include/weighted_graph.hpp
   include/weighted_oriented_graph.hpp
   tests/strongly_connected_component_test.cpp
   tests/graph_test.cpp
   tests/io.hpp
-  tests/SearchStrongConnectComp.cpp
   tests/main.cpp
   tests/oriented_graph_test.cpp
   tests/test.hpp
