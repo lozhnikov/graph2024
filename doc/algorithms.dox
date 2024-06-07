@@ -6,5 +6,7 @@
 @page algorithms Алгоритмы
 
 Список реализованных алгоритмов:
+
 - \subpage strongly_connected_component
+
 */
