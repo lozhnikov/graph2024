@@ -16,4 +16,3 @@ find_package_handle_standard_args(NlohmannJson
     REQUIRED_VARS NLOHMANN_JSON_INCLUDE_DIR)
 
 mark_as_advanced(NLOHMANN_JSON_INCLUDE_DIR)
-

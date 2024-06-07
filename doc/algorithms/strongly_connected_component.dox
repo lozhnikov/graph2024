@@ -1,0 +1,15 @@
+/*!
+@file strongly_connected_component.dox
+@author Igor Bychkov
+
+@page strongly_connected_component Алгоритм поиска компонент сильной связности графа
+
+@section strongly_connected_component_algo Описание алгоритма
+
+Алгоритм реализован в функции graph::StronglyConnectedComponent().
+
+Время работы алгоритма
+\f$
+O(V + E)
+\f$.
+*/
