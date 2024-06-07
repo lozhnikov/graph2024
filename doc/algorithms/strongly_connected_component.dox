@@ -1,14 +1,14 @@
 /*!
 
-@file breadth_first_traversal.dox
+@file StronglyConnectedComponent.dox
 @author Mikhail Lozhnikov
 
-@page breadth_first_traversal Алгоритм поиска компонент сильной связности графа
+@page bStronglyConnectedComponent Алгоритм поиска компонент сильной связности графа
 
-@section breadth_first_traversal_algo Описание алгоритма
+@section StronglyConnectedComponent_algo Описание алгоритма
 
 
-Алгоритм реализован в функции graph::BreadthFirstTraversal().
+Алгоритм реализован в функции graph::StronglyConnectedComponent().
 
 */
 

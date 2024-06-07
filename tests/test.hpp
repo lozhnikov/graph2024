@@ -49,4 +49,8 @@ void TestKuhnMatching(httplib::Client* cli);
 */
 void TestFordBellman(httplib::Client* cli);
 
+/**
+* @brief Набор тестов для функции graph::StronglyConnectedComponent.
+*/
+void TestStronglyConnectedComponent(httplib::Client* cli);
 #endif  // TESTS_TEST_HPP_
