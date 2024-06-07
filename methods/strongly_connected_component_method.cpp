@@ -19,7 +19,7 @@ int StronglyConnectedComponentMethod(const nlohmann::json& input, nlohmann::json
   
   for (auto& edge : input.at("edges")) { graph.AddEdge(edge.at("start"), edge.at("end")); }
   
-  StronglyConnectedComponent(graph,&result);
+  StronglyConnectedComponent(&graph,&result);
   for (size_t i = 0; i < result.size(); ++i) {
       (*output)["result"].push_back(result[i]);
   }  
