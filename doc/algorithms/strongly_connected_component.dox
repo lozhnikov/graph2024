@@ -7,7 +7,6 @@
 @section strongly_connected_component_algo Описание алгоритма
 
 Алгоритм реализован в функции graph::StronglyConnectedComponent().
->>>>>>> bf096d94a82fa0ed081e6ff076b5bbbd6f5f2aac
 
 Время работы алгоритма
 \f$

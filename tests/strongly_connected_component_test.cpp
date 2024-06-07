@@ -26,7 +26,7 @@ void TestStronglyConnectedComponent(httplib::Client* cli) {
 }
 
 static void SimpleTest(httplib::Client* cli) {
-  nlohmann::json tmp;
+    nlohmann::json tmp;
   
     tmp["graph_type"] = "type_oriented";
     tmp["vertices"] = std::vector<size_t> {1, 2, 3, 4};
@@ -63,55 +63,29 @@ static void RandomTest(httplib::Client* cli) {
   nlohmann::json tmp;
   std::random_device rd;
   std::mt19937 gen(rd());
-  std::uniform_int_distribution<> vert(0, 100);
-
-  int Vert0 = vert(gen);
-  int Vert1 = vert(gen);
-  int Vert2 = vert(gen);
-  int Vert3 = vert(gen);
-  int Vert4 = vert(gen);
-  int Vert5 = vert(gen);
-  int Vert6 = vert(gen);
-  int Vert7 = vert(gen);
-  int Vert8 = vert(gen);
-  int Vert9 = vert(gen);
+  std::uniform_int_distribution<size_t> length(5, 20);
+  //std::uniform_int_distribution<> a
 
   tmp["graph_type"] = "type_oriented";
-  tmp["vertices"] = std::vector<int>{ Vert0, Vert1, Vert2, Vert3, Vert4,
-  Vert5, Vert6, Vert7, Vert8, Vert9};
+  tmp["vertices"] = std::vector<size_t>(length(gen));
+  size_t Len = length(gen);
+  std::uniform_int_distribution<size_t> a(0, Len - 1);
+  for (size_t i = 0; i < Len; i++) {
+    tmp["vertices"][i] = i;
+  }
 
-  tmp["edges"][0]["from"] = Vert0;
-  tmp["edges"][0]["to"] = Vert5;
+  for (size_t i = 0; i < Len - 1; i++) {
+    tmp["edges"][i]["start"] = i;
+    tmp["edges"][i]["end"] = i+1;
+  }
 
-  tmp["edges"][1]["from"] = Vert0;
-  tmp["edges"][1]["to"] = Vert9;
+  size_t start = a(gen), end = a(gen);
+  while (end == start) { end = a(gen); }
+  tmp["edges"][Len - 1]["start"] = start;
+  tmp["edges"][Len - 1]["end"] = end;
 
-  tmp["edges"][2]["from"] = Vert1;
-  tmp["edges"][2]["to"] = Vert7;
-
-  tmp["edges"][3]["from"] = Vert2;
-  tmp["edges"][3]["to"] = Vert8;
-
-  tmp["edges"][4]["from"] = Vert0;
-  tmp["edges"][4]["to"] = Vert6;
-
-  tmp["edges"][5]["from"] = Vert3;
-  tmp["edges"][5]["to"] = Vert8;
-
-  tmp["edges"][6]["from"] = Vert1;
-  tmp["edges"][6]["to"] = Vert9;
-
-  tmp["edges"][7]["from"] = Vert4;
-  tmp["edges"][7]["to"] = Vert7;
-
-  tmp["edges"][8]["from"] = Vert4;
-  tmp["edges"][8]["to"] = Vert6;
-
-  tmp["edges"][9]["from"] = Vert3;
-  tmp["edges"][9]["to"] = Vert5;
-
-
-
+  //std::cout<<tmp<<std::endl;
+  
   std::string input = tmp.dump();
 
   auto res = cli->Post("/StronglyConnectedComponent", input, "application/json");
@@ -120,13 +94,32 @@ static void RandomTest(httplib::Client* cli) {
     REQUIRE(false);
   }
 
+//std::cout<<res->body<<std::endl;
+
   nlohmann::json output = nlohmann::json::parse(res->body);
 
   std::map<size_t, std::vector<size_t>> result = output.at("result");
 
   std::map<size_t, std::vector<size_t>> expected;
+  if(end > start) {
+    for(size_t j = 0; j < Len; j++) {
+      expected[j] = {j};
+    }
+  }
+  else {
+    for(size_t j = 0; j < end; j++) {
+      expected[j] = {j};
+    }
+    std::vector<size_t> cycle;
+    for (size_t j = 0; j < (start - end + 1); j++) {
+      cycle[j] = end + j;
+    }
+    expected[end] = cycle;
+    for(size_t j = (end + 1); j < (Len - end); j++) {
+      expected[j] = {end + j};
+    }
+  }
 
-  expected = result;
-
+  //std::cout<<expected<<std::endl;
   REQUIRE_EQUAL(expected, result);
 }
