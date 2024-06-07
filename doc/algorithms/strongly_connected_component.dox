@@ -1,23 +1,13 @@
 /*!
 
-@file breadth_first_traversal.dox
-@author Mikhail Lozhnikov
+@file strongly_connected_component.dox
+@author Igor Bychkov
 
-@page breadth_first_traversal Алгоритм поиска компонент сильной связности графа
+@page strongly_connected_component Алгоритм поиска компонент сильной связности графа
 
-@section breadth_first_traversal_algo Описание алгоритма
+@section strongly_connected_component_algo Описание алгоритма
 
-
-Алгоритм реализован в функции graph::BreadthFirstTraversal().
-
-*/
-
-
-/*!
-@fn graph::BreadthFirstTraversal(GraphType& graph, Predicate predicate)
-
-Функция реализует алгоритм топологической сортировки, описанный в разделе
-@ref breadth_first_traversal.
+Алгоритм реализован в функции graph::StronglyConnectedComponent().
 
 Время работы алгоритма
 \f$
