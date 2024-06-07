@@ -18,12 +18,10 @@
 
 namespace graph {
 
-//template<typename OrientedGraph>
-
-void DeepSearch1 (size_t v, const graph::OrientedGraph& g, 
+void DeepSearch1 (size_t v, const graph::OrientedGraph* g, 
 std::map<size_t, int>* used, std::vector<size_t>* order) {
   (*used)[v] = 1;
-  for (const auto& value : g.Edges(v)) {
+  for (const auto& value : g->Edges(v)) {
     if(!(*used)[value]) {
       DeepSearch1 (value, g, used, order);
     }
@@ -31,11 +29,11 @@ std::map<size_t, int>* used, std::vector<size_t>* order) {
   } 
 }
 
-void DeepSearch2 (size_t v, const graph::OrientedGraph& gr, 
+void DeepSearch2 (size_t v, const graph::OrientedGraph* gr, 
 std::map<size_t, int>* used, std::vector<size_t>* component) {
   (*used)[v] = 1;
   (*component).push_back(v);
-  for (const auto& value : gr.Edges(v)) {
+  for (const auto& value : gr->Edges(v)) {
     if(!(*used)[value]) {
       DeepSearch2 (value, gr, used, component);
     }
@@ -46,28 +44,25 @@ std::map<size_t, int>* used, std::vector<size_t>* component) {
  * @brief Алгоритм Strong Connected Component
  */
 
-void StronglyConnectedComponent(const graph::OrientedGraph& g, std::map<size_t,std::vector<size_t>>* result) 
-{ //make transported graph
+void StronglyConnectedComponent(const graph::OrientedGraph* g, std::map<size_t,std::vector<size_t>>* result) { 
   graph::OrientedGraph gr;
   std::map<size_t, int> used;
   std::vector<size_t> component;
   std::vector<size_t> order;
-  for (size_t j : g.Vertices()) {
+  for (size_t j : g->Vertices()) {
     gr.AddVertex(j);
-    for (size_t neighbour : g.Edges(j)) {
-      if(g.HasEdge(j,neighbour))
+    for (size_t neighbour : g->Edges(j)) {
+      if(g->HasEdge(j,neighbour))
         gr.AddEdge(neighbour, j);
     }
   }
-  //used.assign (n, false);
-  for (auto value : g.Vertices()) {
+  for (auto value : g->Vertices()) {
     if (!used[value]){  
       DeepSearch1(value, g, &used, &order);
     }
   }
-  //used.assign (n, false);
-  for (auto value : g.Vertices()) {
-    size_t v = order.rbegin()[value]; //правильно ли?
+  for (size_t value = 0; value < g->NumVertices(); ++value) {
+    size_t v = order.rbegin()[value];
     if (!(used[v])){  
       DeepSearch2(v, gr, &used, &component);
       size_t i = 0;
